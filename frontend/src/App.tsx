@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage";
 
 import "./App.css";
 function App() {
+  console.log("MYGOAL");
   return (
     <Provider store={store}>
       <BrowserRouter>

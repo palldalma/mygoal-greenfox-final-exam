@@ -45,8 +45,12 @@ const Login: FC<LoginProps> = ({ saveUserInfo }) => {
         if (response.error === "Email is required.") {
           setEmailStyle({ border: "1px solid red" });
         }
-      } else if (response.token && response.name) {
-        saveUserInfo({ token: response.token, name: response.name });
+      } else if (response.token && response.name && response.id) {
+        saveUserInfo({
+          token: response.token,
+          name: response.name,
+          id: response.id,
+        });
         history.push("/");
       } else {
         setFeedback("Something went wrong.");

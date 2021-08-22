@@ -130,19 +130,4 @@ const SignInSection = styled.div`
   }
 `;
 
-const DropDownLink = styled(Link)`
-  /* @media screen and (max-width: 768px) {
-  } */
-`;
-
-export {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  NavBtn,
-  NavBtnLink,
-  Logo,
-  SignInSection,
-  DropDownLink,
-};
+export { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink, Logo, SignInSection };

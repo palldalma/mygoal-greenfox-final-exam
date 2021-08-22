@@ -12,7 +12,6 @@ import {
   NavBtnLink,
   Logo,
   SignInSection,
-  DropDownLink,
 } from "../../styles/navbar.styles";
 import { UserInfo } from "../../interfaces/logininfo";
 
@@ -63,7 +62,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
       <Nav>
         <Logo>
           <NavLink to="/home" style={{ border: "none", height: "60px" }}>
-            <img src={logo} style={{ height: "40px" }} />
+            <img src={logo} style={{ height: "40px" }} alt="logo" />
           </NavLink>
         </Logo>
 
@@ -76,20 +75,18 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
               style={visibility ? { display: "flex" } : { display: "none" }}
             >
               <NavMenu>
-                <NavLink to="/mytests" activeStyle={activeStyle}>
+                <NavLink to="/users/resources" activeStyle={activeStyle}>
                   My tests
                 </NavLink>
               </NavMenu>
 
               <NavDropdown title={name} id="userdropdown">
-                <NavDropdown.Item id="dropdownitem">
-                  <DropDownLink
-                    id="dropdownlink"
-                    to="/users/logout"
-                    onClick={handleLogOut}
-                  >
-                    Logout
-                  </DropDownLink>
+                <NavDropdown.Item
+                  id="dropdownitem"
+                  to="/users/logout"
+                  onClick={handleLogOut}
+                >
+                  Logout
                 </NavDropdown.Item>
               </NavDropdown>
             </SignInSection>

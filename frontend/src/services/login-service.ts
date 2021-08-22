@@ -28,7 +28,7 @@ const login = async (email: string, password: string): Promise<LoginInfo> => {
 
     console.log(result);
     if (response.status === 200) {
-      return { name: result.name, token: result.token };
+      return { name: result.name, token: result.token, id: result.id };
     } else {
       return { error: result.message };
     }

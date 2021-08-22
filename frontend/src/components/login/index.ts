@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import Login from "./Login";
 
 import { saveUserInfo } from "../../store/actions/userAction";
+import { LoginInfo } from "../../interfaces/logininfo";
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {
-    saveUserInfo: (token: string) => dispatch(saveUserInfo(token)),
+    saveUserInfo: (logininfo: LoginInfo) => dispatch(saveUserInfo(logininfo)),
   };
 };
 

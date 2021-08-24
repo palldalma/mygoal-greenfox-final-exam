@@ -5,3 +5,8 @@ export interface ResourceInfo {
   };
   error?: string;
 }
+
+export interface ResourcesInterface {
+  gem: number;
+  live: number;
+}

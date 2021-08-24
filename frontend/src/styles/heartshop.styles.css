@@ -1,0 +1,36 @@
+#heartshop {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+}
+
+.plusminus {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+}
+
+.shopbuttons {
+  width: 120px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+  border: 1px solid #5252;
+  color: #525252;
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  #heartshop {
+    margin-bottom: 30px;
+  }
+  .shopbuttons {
+  }
+}

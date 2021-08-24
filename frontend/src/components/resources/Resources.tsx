@@ -11,37 +11,51 @@ import {
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { useEffect } from "react";
-import { ResourceInfo } from "../../interfaces/resourceinfo";
+import {
+  ResourceInfo,
+  ResourcesInterface,
+} from "../../interfaces/resourceinfo";
+import store from "../../store";
 
-export interface ResourcesProps {}
+interface ResourcesProps {
+  saveResourcesREDUX: Function;
+  //resourcesInfo: ResourceInfo;
+}
 
-const Resources: FC<ResourcesProps> = () => {
+const Resources: FC<ResourcesProps> = ({ saveResourcesREDUX }) => {
   const id = useSelector((state: UserInfo) => state.user.id);
-  const [resources, setResources] = useState({
-    resources: { gem: 0, live: 0 },
-  } as ResourceInfo);
+  const [resources, setResources] = useState({} as ResourceInfo);
 
   useEffect(() => {
     async function gainResources() {
-      const resources = await getResources(id);
-
-      if (resources.resources) {
-        setResources(resources);
-      }
+      await getResources(id).then((data) => {
+        if (data.resources) {
+          setResources(data as ResourceInfo);
+        }
+      });
     }
 
     gainResources();
-  }, []);
+    const res = resources.resources as ResourcesInterface;
+    saveResourcesREDUX({ res });
+  }, [resources]);
+
+  // useEffect(() => {
+  //   console.log(resources.resources);
+  //   saveResources(resources.resources as ResourcesInterface);
+  // }, [resources.resources as ResourcesInterface]);
+
+  //useeffect amit a resources-ra figyel? abban kéne meghívni a saveResources?
 
   return (
-    <>
+    <div>
       <ResourceContainer>
         <Lives />
         <LiveCounter>{resources.resources?.live}</LiveCounter>
         <Gems />
         <GemCounter>{resources.resources?.gem}</GemCounter>
       </ResourceContainer>
-    </>
+    </div>
   );
 };
 

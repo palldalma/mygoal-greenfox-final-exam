@@ -20,7 +20,6 @@ const getResources = async (
 
     const result = await response.json();
 
-    console.log(result);
     return result;
     // if (response.status === 200) {
     //   return { gem: result, live: result.token, id: result.id };

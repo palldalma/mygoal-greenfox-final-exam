@@ -1,7 +1,8 @@
 import { FC, useState, useEffect, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 import { isDesktop } from "react-device-detect";
-import { NavDropdown } from "react-bootstrap";
+import { NavDropdown, Button, Modal } from "react-bootstrap";
+// import { saveResources } from "../../store/actions/resourceAction";
 
 import {
   NavLink,
@@ -14,10 +15,13 @@ import {
   SignInSection,
 } from "../../styles/navbar.styles";
 import { UserInfo } from "../../interfaces/logininfo";
+import Resources from "../resources/Resources";
 
 import logo from "../../assets/logo.png";
 import "../../styles/navbar.styles.css";
-import Resources from "../resources/Resources";
+import "../../styles/heartshop.styles.css";
+import HeartShop from "../heartshop/Heartshop";
+import resources from "../resources";
 
 export interface NavbarProps {
   deleteUserInfo: Function;
@@ -33,6 +37,12 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
   const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
   const name = useSelector((state: UserInfo) => state.user.name);
+
+  //modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  //
 
   const showMenu = () => {
     setVisibility(!visibility);
@@ -59,6 +69,23 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
 
   return (
     <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Buy extra life</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <HeartShop />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Nav>
         <Logo>
           <NavLink to="/home" style={{ border: "none", height: "60px" }}>
@@ -70,7 +97,10 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
 
         {isLoggedIn ? (
           <>
-            <Resources />
+            <button id="heartshop" onClick={handleShow}>
+              {/* <Resources /> */}
+            </button>
+
             <SignInSection
               style={visibility ? { display: "flex" } : { display: "none" }}
             >

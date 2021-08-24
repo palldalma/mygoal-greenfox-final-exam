@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 
 import Login from "./Login";
 
-import { saveUserInfo } from "../../store/actions/userAction";
 import { LoginInfo } from "../../interfaces/logininfo";
+
+import { saveUserInfo } from "../../store/actions/userAction";
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {

@@ -9,12 +9,15 @@ import Navbar from "./components/navbar";
 import HomePage from "./components/HomePage";
 
 import "./App.css";
+import Resources from "./components/resources/Resources";
 function App() {
   console.log("MYGOAL");
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
+        <Resources />
+
         <Switch>
           <Route exact path="/">
             <HomePage />

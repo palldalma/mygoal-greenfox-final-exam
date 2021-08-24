@@ -6,13 +6,13 @@ import { ErrorHandling } from "../services/error-service";
 export const resourceController = {
   async get(req: Request, res: Response, next: NextFunction): Promise<void> {
     const userid: number = parseInt(req.headers.userid as unknown as string);
-    const resource = await resourcesService
+    await resourcesService
       .getResources({ userid })
       .then((data) => {
         // if ((data as ErrorHandling).status === "error") {
         //   res.status(400).json(data);
         // } else {
-        console.log(data);
+        // console.log(data);
         return res.status(200).json(data);
         // }
       })

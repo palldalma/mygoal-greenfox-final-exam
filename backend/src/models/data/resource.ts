@@ -1,4 +1,4 @@
-export interface Resource {
-  live: number;
+export interface GemAndLives {
+  lives: number;
   gem: number;
 }

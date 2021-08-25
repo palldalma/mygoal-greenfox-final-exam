@@ -16,7 +16,6 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
-        <Resources />
 
         <Switch>
           <Route exact path="/">

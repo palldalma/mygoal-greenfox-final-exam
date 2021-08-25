@@ -1,11 +1,11 @@
-import { Resource } from "../data/resource";
+import { GemAndLives } from "../data/resource";
 
 interface ResourceRequest {
   userid: number | undefined;
 }
 
 interface ResourceResponse {
-  resources: Resource;
+  resources: GemAndLives;
 }
 
 export { ResourceRequest, ResourceResponse };

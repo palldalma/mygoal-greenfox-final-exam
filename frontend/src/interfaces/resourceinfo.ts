@@ -1,12 +1,12 @@
 export interface ResourceInfo {
   resources?: {
     gem: number;
-    live: number;
+    lives: number;
   };
   error?: string;
 }
 
-export interface ResourcesInterface {
+export interface GemAndLives {
   gem: number;
-  live: number;
+  lives: number;
 }

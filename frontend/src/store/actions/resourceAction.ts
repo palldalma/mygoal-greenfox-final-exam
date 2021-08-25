@@ -1,9 +1,8 @@
-import { ResourcesInterface } from "../../interfaces/resourceinfo";
+import { GemAndLives } from "../../interfaces/resourceinfo";
 
-export const SAVE_RESOURCE = "SAVE_RESOURCE";
+export const SAVE_RESOURCES = "SAVE_RESOURCES";
 
-//a kódban ezeket a function-öket tudod meghívni
-export const saveResources = (resources: ResourcesInterface) => ({
-  type: SAVE_RESOURCE,
-  payload: resources,
+export const updateResourceState = (gemAndLives: GemAndLives) => ({
+  type: SAVE_RESOURCES,
+  payload: gemAndLives,
 });

@@ -15,13 +15,12 @@ import {
   SignInSection,
 } from "../../styles/navbar.styles";
 import { UserInfo } from "../../interfaces/logininfo";
-import Resources from "../resources/Resources";
 
 import logo from "../../assets/logo.png";
 import "../../styles/navbar.styles.css";
 import "../../styles/heartshop.styles.css";
 import HeartShop from "../heartshop/Heartshop";
-import resources from "../resources";
+import Resources from "../resources/";
 
 export interface NavbarProps {
   deleteUserInfo: Function;
@@ -98,7 +97,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
         {isLoggedIn ? (
           <>
             <button id="heartshop" onClick={handleShow}>
-              {/* <Resources /> */}
+              <Resources />
             </button>
 
             <SignInSection

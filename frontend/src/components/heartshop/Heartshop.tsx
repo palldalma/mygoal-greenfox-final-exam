@@ -5,7 +5,8 @@ import {
   HeartshopContainer,
   MinusSign,
 } from "../../styles/heartshop.styles";
-import Resources from "../resources/Resources";
+import { Lives } from "../../styles/resources.styles";
+import Resources from "../resources/";
 
 export interface HeartShopProps {}
 
@@ -13,12 +14,11 @@ const HeartShop: FC<HeartShopProps> = () => {
   return (
     <>
       <HeartshopContainer>
-        <div>{/* <Resources /> */}</div>
-
         <div className="shopbuttons">
           <button className="plusminus">
             <MinusSign />
           </button>
+          <Lives />
           <button className="plusminus">
             <PlusSign />
           </button>

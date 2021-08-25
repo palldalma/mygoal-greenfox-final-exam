@@ -1,7 +1,7 @@
 import { db } from "../data/connection";
 import { DbResult } from "../models/data/db-results";
 import { ResourceRequest, ResourceResponse } from "../models/dto/resource";
-import { Resource } from "../models/data/resource";
+import { GemAndLives } from "../models/data/resource";
 
 const getResources = async (
   request: ResourceRequest
@@ -10,17 +10,17 @@ const getResources = async (
 
   const data: DbResult = await db
     .query(
-      `SELECT gem,live FROM resource r INNER JOIN user u ON r.userid = u.id WHERE u.id = ?`,
+      `SELECT gem,lives FROM resource r INNER JOIN user u ON r.userid = u.id WHERE u.id = ?`,
       [userid]
     )
     .catch((error) => {
       throw new Error(`database error: ${error.message}`);
     });
 
-  const resources = data.results[0] as Resource;
+  const gemAndLive = data.results[0] as GemAndLives;
 
   const response: ResourceResponse = {
-    resources: resources,
+    resources: gemAndLive,
   };
 
   return new Promise((resolve) => resolve(response));

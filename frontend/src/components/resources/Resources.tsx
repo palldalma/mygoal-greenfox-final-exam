@@ -11,49 +11,39 @@ import {
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { useEffect } from "react";
-import {
-  ResourceInfo,
-  ResourcesInterface,
-} from "../../interfaces/resourceinfo";
-import store from "../../store";
+import { GemAndLives } from "../../interfaces/resourceinfo";
 
 interface ResourcesProps {
-  saveResourcesREDUX: Function;
-  //resourcesInfo: ResourceInfo;
+  updateResourceState: Function;
 }
 
-const Resources: FC<ResourcesProps> = ({ saveResourcesREDUX }) => {
+const Resources: FC<ResourcesProps> = ({ updateResourceState }) => {
   const id = useSelector((state: UserInfo) => state.user.id);
-  const [resources, setResources] = useState({} as ResourceInfo);
+  const [resources, setResources] = useState({ gem: 0, lives: 0 });
 
   useEffect(() => {
     async function gainResources() {
       await getResources(id).then((data) => {
         if (data.resources) {
-          setResources(data as ResourceInfo);
+          const gem = data.resources.gem;
+          const lives = data.resources.lives;
+
+          let tempResource = { gem: gem, lives: lives };
+          setResources(tempResource as GemAndLives);
+          updateResourceState(tempResource);
         }
       });
     }
-
     gainResources();
-    const res = resources.resources as ResourcesInterface;
-    saveResourcesREDUX({ res });
-  }, [resources]);
-
-  // useEffect(() => {
-  //   console.log(resources.resources);
-  //   saveResources(resources.resources as ResourcesInterface);
-  // }, [resources.resources as ResourcesInterface]);
-
-  //useeffect amit a resources-ra figyel? abban kéne meghívni a saveResources?
+  }, []);
 
   return (
     <div>
       <ResourceContainer>
         <Lives />
-        <LiveCounter>{resources.resources?.live}</LiveCounter>
+        <LiveCounter>{resources.lives}</LiveCounter>
         <Gems />
-        <GemCounter>{resources.resources?.gem}</GemCounter>
+        <GemCounter>{resources.gem}</GemCounter>
       </ResourceContainer>
     </div>
   );

@@ -1,6 +1,9 @@
 import config from "../config";
 
-import { ResourceInfo } from "../interfaces/resourceinfo";
+import {
+  ResourceInfo,
+  updateResourceRequest,
+} from "../interfaces/resourceinfo";
 
 const getResources = async (
   userid: string | undefined
@@ -31,4 +34,44 @@ const getResources = async (
   }
 };
 
-export { getResources };
+const updateResources = async (
+  requestedChanges: updateResourceRequest
+) /* : Promise<ResourceInfo> */ => {
+  if (!requestedChanges.userid) {
+    return { error: "Userid is missing." };
+  }
+
+  try {
+    if (
+      requestedChanges.userid !== undefined &&
+      requestedChanges.gem !== undefined &&
+      requestedChanges.lives !== undefined
+    ) {
+      const response = await fetch(`${config.url}/users/resources/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          userid: requestedChanges.userid,
+        },
+        body: JSON.stringify({
+          gem: requestedChanges.gem,
+          lives: requestedChanges.lives,
+        }),
+      });
+
+      const result: ResourceInfo = await response.json();
+      console.log(result);
+
+      return result;
+      // if (response.status === 200) {
+      //   return { gem: result, live: result.token, id: result.id };
+      // } else {
+      //   return { error: result.message };
+      // }
+    }
+  } catch (err) {
+    return { error: err.message };
+  }
+};
+
+export { getResources, updateResources };

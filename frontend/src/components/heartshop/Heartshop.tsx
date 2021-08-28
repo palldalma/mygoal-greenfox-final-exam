@@ -1,7 +1,9 @@
 import { SyntheticEvent } from "react";
 import { FC, useState } from "react";
 import { useSelector } from "react-redux";
+import { UserInfo } from "../../interfaces/logininfo";
 import { GemAndLives, ResourceInfo } from "../../interfaces/resourceinfo";
+import { updateResources } from "../../services/resource-service";
 import {
   PlusSign,
   HeartshopContainer,
@@ -21,6 +23,7 @@ const HeartShop: FC<HeartShopProps> = ({
   updateResourceState,
   setRerenderNeeded,
 }) => {
+  const userid = useSelector((state: UserInfo) => state.user?.id);
   const gem = useSelector((state: ResourceInfo) => state.resources?.gem);
   const lives = useSelector((state: ResourceInfo) => state.resources?.lives);
 
@@ -71,6 +74,7 @@ const HeartShop: FC<HeartShopProps> = ({
 
     updateResourceState({ gem: customGem, lives: customLives } as GemAndLives);
     setRerenderNeeded(true);
+    updateResources({ userid: userid, lives: customLives, gem: customGem });
   };
 
   return (

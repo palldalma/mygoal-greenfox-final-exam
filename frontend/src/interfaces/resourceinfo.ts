@@ -10,3 +10,9 @@ export interface GemAndLives {
   gem: number;
   lives: number;
 }
+
+export interface updateResourceRequest {
+  userid: string | undefined;
+  gem: number | undefined;
+  lives: number | undefined;
+}

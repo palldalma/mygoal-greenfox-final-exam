@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import Resources from "./Resources";
+import Heartshop from "./Heartshop";
 
 import { updateResourceState } from "../../store/actions/resourceAction";
 
@@ -13,11 +13,4 @@ const mapDispatchToProps = (dispatch: Function) => {
   };
 };
 
-const mapStateToProps = (state: any) => {
-  const resourcesFromStore = state.resources;
-  return {
-    resourcesFromStore,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Resources);
+export default connect(null, mapDispatchToProps)(Heartshop);

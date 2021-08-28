@@ -4,13 +4,11 @@ import { GiCutDiamond } from "react-icons/gi";
 
 const Lives = styled(AiFillHeart)`
   color: red;
-  margin-right: 5px;
+
   font-size: 25px;
 `;
 
 const Gems = styled(GiCutDiamond)`
-  margin-left: 15px;
-  margin-right: 5px;
   color: #4190ba;
   font-size: 25px;
 `;
@@ -24,11 +22,23 @@ const GemCounter = styled.div`
 `;
 
 const ResourceContainer = styled.div`
+  height: 60px;
+  width: 150px;
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &:hover {
+    background: #5252;
+    transition: all 0.2s ease-in-out;
+  }
+
   @media screen and (max-width: 768px) {
-    right: 100px;
+    right: 80px;
     position: absolute;
+    top: 10px;
   }
 `;
 

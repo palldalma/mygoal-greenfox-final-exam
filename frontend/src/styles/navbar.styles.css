@@ -48,4 +48,11 @@
 
 #dropdownitem {
   margin-right: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+#logout {
+  display: flex;
+  justify-content: center;
 }

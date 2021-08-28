@@ -11,15 +11,23 @@ import {
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { useEffect } from "react";
-import { GemAndLives } from "../../interfaces/resourceinfo";
+import { GemAndLives, ResourceInfo } from "../../interfaces/resourceinfo";
 
 interface ResourcesProps {
   updateResourceState: Function;
+  rerenderNeeded: boolean;
+  resourcesFromStore: GemAndLives;
 }
 
-const Resources: FC<ResourcesProps> = ({ updateResourceState }) => {
+const Resources: FC<ResourcesProps> = ({
+  updateResourceState,
+  rerenderNeeded,
+  resourcesFromStore,
+}) => {
   const id = useSelector((state: UserInfo) => state.user.id);
   const [resources, setResources] = useState({ gem: 0, lives: 0 });
+  // const gem = useSelector((state: ResourceInfo) => state.resources?.gem);
+  // const lives = useSelector((state: ResourceInfo) => state.resources?.lives);
 
   useEffect(() => {
     async function gainResources() {
@@ -35,15 +43,19 @@ const Resources: FC<ResourcesProps> = ({ updateResourceState }) => {
       });
     }
     gainResources();
-  }, []);
+  }, [resourcesFromStore.lives]);
 
   return (
     <div>
       <ResourceContainer>
-        <Lives />
-        <LiveCounter>{resources.lives}</LiveCounter>
-        <Gems />
-        <GemCounter>{resources.gem}</GemCounter>
+        <div>
+          <Lives />
+          <LiveCounter>{resources.lives}</LiveCounter>
+        </div>
+        <div>
+          <Gems />
+          <GemCounter>{resources.gem}</GemCounter>
+        </div>
       </ResourceContainer>
     </div>
   );

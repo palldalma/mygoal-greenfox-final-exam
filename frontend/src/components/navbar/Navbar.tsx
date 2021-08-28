@@ -19,7 +19,7 @@ import { UserInfo } from "../../interfaces/logininfo";
 import logo from "../../assets/logo.png";
 import "../../styles/navbar.styles.css";
 import "../../styles/heartshop.styles.css";
-import HeartShop from "../heartshop/Heartshop";
+import HeartShop from "../heartshop/";
 import Resources from "../resources/";
 
 export interface NavbarProps {
@@ -36,10 +36,14 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
   const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
   const name = useSelector((state: UserInfo) => state.user.name);
+  const [resourceRerenderNeeded, setResourceRerenderNeeded] = useState(false);
 
   //modal
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    // saveCustomLives()
+  };
   const handleShow = () => setShow(true);
   //
 
@@ -73,16 +77,11 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
           <Modal.Title>Buy extra life</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <HeartShop />
+          <HeartShop
+            handleClose={handleClose}
+            setRerenderNeeded={setResourceRerenderNeeded}
+          />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
 
       <Nav>
@@ -97,17 +96,17 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
         {isLoggedIn ? (
           <>
             <button id="heartshop" onClick={handleShow}>
-              <Resources />
+              <Resources rerenderNeeded={resourceRerenderNeeded} />
             </button>
 
             <SignInSection
               style={visibility ? { display: "flex" } : { display: "none" }}
             >
-              <NavMenu>
+              {/* <NavMenu>
                 <NavLink to="/users/resources" activeStyle={activeStyle}>
                   My tests
                 </NavLink>
-              </NavMenu>
+              </NavMenu> */}
 
               <NavDropdown title={name} id="userdropdown">
                 <NavDropdown.Item

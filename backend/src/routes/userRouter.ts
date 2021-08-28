@@ -13,5 +13,6 @@ userRouter.use(express.json());
 userRouter.post("/registration", registrationController.postUserDataToDB);
 userRouter.post("/login", loginController.checkUserData);
 userRouter.get("/resources", resourceController.get);
+userRouter.put("/resources/update", resourceController.put);
 
 export default userRouter;

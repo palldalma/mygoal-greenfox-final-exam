@@ -1,4 +1,4 @@
 export interface GemAndLives {
-  lives: number;
-  gem: number;
+  lives: number | undefined;
+  gem: number | undefined;
 }

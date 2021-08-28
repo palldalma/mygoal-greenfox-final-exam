@@ -8,4 +8,19 @@ interface ResourceResponse {
   resources: GemAndLives;
 }
 
-export { ResourceRequest, ResourceResponse };
+interface updateResourceRequest {
+  userid: number | undefined;
+
+  body: GemAndLives;
+}
+
+interface updateResourceResponse {
+  resources: Response;
+}
+
+export {
+  ResourceRequest,
+  ResourceResponse,
+  updateResourceRequest,
+  updateResourceResponse,
+};

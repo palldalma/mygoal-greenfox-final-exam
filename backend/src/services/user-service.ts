@@ -1,5 +1,5 @@
 import { pool, db } from "../data/connection";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import config from "../config";
 import { DbResult } from "../models/data/db-results";
 import jwt from "jsonwebtoken";
@@ -67,7 +67,10 @@ const register = async (req: Request): Promise<Response | ErrorHandling> => {
             if (error) {
               throw new Error(`MySQL transaction error: ${error.message}`);
             }
-            //add the user's kingdom to the kingdom table
+            //add the user's data to the user table
+
+            let userid;
+
             connection.query(
               `INSERT INTO mygoal.user (email, password, name) VALUES (?,?,?)`,
               [email, hashedPassword, name],
@@ -90,6 +93,23 @@ const register = async (req: Request): Promise<Response | ErrorHandling> => {
                     }
                     const response: Response = result[0];
 
+                    //add inital resources to resource table
+
+                    const initialLives = 5;
+                    const initialGem = 0;
+
+                    connection.query(
+                      `INSERT INTO resource (lives, gem, userid) VALUES (?,?,?);`,
+                      [initialLives, initialGem, result[0].id],
+                      (error) => {
+                        if (error) {
+                          return connection.rollback(() => {
+                            throw new Error(`database error: ${error.message}`);
+                          });
+                        }
+                      }
+                    );
+
                     connection.commit((error) => {
                       if (error) {
                         return connection.rollback(() => {
@@ -102,6 +122,7 @@ const register = async (req: Request): Promise<Response | ErrorHandling> => {
                 );
               }
             );
+
             connection.release();
           });
         });

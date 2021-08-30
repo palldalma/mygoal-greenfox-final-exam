@@ -1,8 +1,7 @@
 import { FC, useState, useEffect, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 import { isDesktop } from "react-device-detect";
-import { NavDropdown, Button, Modal } from "react-bootstrap";
-// import { saveResources } from "../../store/actions/resourceAction";
+import { NavDropdown, Modal } from "react-bootstrap";
 
 import {
   NavLink,
@@ -42,10 +41,8 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
-    // saveCustomLives()
   };
   const handleShow = () => setShow(true);
-  //
 
   const showMenu = () => {
     setVisibility(!visibility);
@@ -53,7 +50,6 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
 
   const handleLogOut = async (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log("ki akarok lépni");
     deleteUserInfo();
   };
 

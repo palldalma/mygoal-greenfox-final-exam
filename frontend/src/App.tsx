@@ -6,10 +6,10 @@ import store from "./store";
 import Login from "./components/login";
 import Registration from "./components/registration/Registration";
 import Navbar from "./components/navbar";
-import HomePage from "./components/HomePage";
+import HomePage from "./components/homepage/HomePage";
 
 import "./App.css";
-import Resources from "./components/resources/Resources";
+
 function App() {
   console.log("MYGOAL");
   return (

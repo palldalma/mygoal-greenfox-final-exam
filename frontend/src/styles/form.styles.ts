@@ -56,6 +56,10 @@ const Input = styled.input`
   &:hover {
     background: #e8dede;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 70vw;
+  }
 `;
 
 const UserForm = styled.form`
@@ -63,12 +67,21 @@ const UserForm = styled.form`
   flex-direction: column;
   width: 20vw;
   height: 80vh;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    align-items: center;
+  }
 `;
 
 const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export { Heading, Button, Input, UserForm, FormContainer, FeedbackField };

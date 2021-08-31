@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-const HomepageContainer = styled.div`
+const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 30px;
 `;
 
-export { HomepageContainer };
+export { PageContainer };

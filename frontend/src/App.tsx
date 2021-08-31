@@ -10,6 +10,9 @@ import HomePage from "./components/homepage/HomePage";
 
 import "./App.css";
 
+import StarterPage from "./components/startergames/StarterPage";
+import StarterTranslationPage from "./components/startergames/starterTranslation/StarterTranslationPage";
+
 function App() {
   console.log("MYGOAL");
   return (
@@ -21,11 +24,17 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path="/users/login">
+          <Route exact path="/users/login">
             <Login />
           </Route>
-          <Route path="/users/registration">
+          <Route exact path="/users/registration">
             <Registration />
+          </Route>
+          <Route exact path="/starter">
+            <StarterPage />
+          </Route>
+          <Route exact path="/starter/translation">
+            <StarterTranslationPage />
           </Route>
         </Switch>
       </BrowserRouter>

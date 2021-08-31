@@ -1,16 +1,16 @@
 import { FC, useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { UserInfo } from "../../interfaces/logininfo";
+import { BrowserRouter, Route, Switch, useRouteMatch } from "react-router-dom";
+
 import { PageContainer } from "../../styles/page.styles";
 
-import StarterPage from "../startergames/StarterPage";
-import LevelSelector from "./LevelSelector";
+import { UserInfo } from "../../interfaces/logininfo";
+import StarterGameSelector from "./StarterGameSelector";
 
-export interface HomeProps {}
+export interface StarterPageProps {}
 
-export const Home: FC<HomeProps> = () => {
+const StarterPage: FC<StarterPageProps> = () => {
   const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -26,11 +26,12 @@ export const Home: FC<HomeProps> = () => {
     checkStorage();
   }, [state]);
 
+  useRouteMatch();
   return (
     <PageContainer>
-      {isLoggedIn ? <LevelSelector /> : <h1>You should login, buddy.</h1>}
+      {isLoggedIn ? <StarterGameSelector /> : <h1>You should login, buddy</h1>}
     </PageContainer>
   );
 };
 
-export default Home;
+export default StarterPage;

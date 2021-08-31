@@ -4,6 +4,7 @@ import { GiProgression } from "react-icons/gi";
 import { GiSchoolBag } from "react-icons/gi";
 import { MdSchool } from "react-icons/md";
 import { FaHourglassStart } from "react-icons/fa";
+import { BsBookHalf } from "react-icons/bs";
 
 const TileContainer = styled.div`
   width: 40vw;
@@ -40,6 +41,10 @@ const Tile = styled(Link)`
 
   @media screen and (max-width: 1342px) {
     margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 10px;
     width: 100px;
     height: 100px;
   }
@@ -62,5 +67,17 @@ const Advanced = styled(MdSchool)`
   width: 50px;
   height: 50px;
 `;
+const TranslationIcon = styled(BsBookHalf)`
+  width: 50px;
+  height: 50px;
+`;
 
-export { Tile, Beginner, Intermediate, Advanced, Starter, TileContainer };
+export {
+  Tile,
+  Beginner,
+  Intermediate,
+  Advanced,
+  Starter,
+  TileContainer,
+  TranslationIcon,
+};

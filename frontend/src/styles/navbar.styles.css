@@ -52,6 +52,12 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  #dropdownitem {
+    margin: 0;
+  }
+}
+
 #logout {
   display: flex;
   justify-content: center;

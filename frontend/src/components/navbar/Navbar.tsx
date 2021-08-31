@@ -12,6 +12,7 @@ import {
   NavBtnLink,
   Logo,
   SignInSection,
+  Logout,
 } from "../../styles/navbar.styles";
 import { UserInfo } from "../../interfaces/logininfo";
 
@@ -98,13 +99,18 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
             <SignInSection
               style={visibility ? { display: "flex" } : { display: "none" }}
             >
-              {/* <NavMenu>
-                <NavLink to="/users/resources" activeStyle={activeStyle}>
-                  My tests
+              <NavMenu>
+                <NavLink
+                  to="/users/logout"
+                  activeStyle={activeStyle}
+                  onClick={handleLogOut}
+                  id="dropdownitem"
+                >
+                  <Logout />
                 </NavLink>
-              </NavMenu> */}
+              </NavMenu>
 
-              <NavDropdown title={name} id="userdropdown">
+              {/* <NavDropdown title={name} id="userdropdown">
                 <NavDropdown.Item
                   id="dropdownitem"
                   to="/users/logout"
@@ -112,7 +118,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
                 >
                   Logout
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </SignInSection>
           </>
         ) : (

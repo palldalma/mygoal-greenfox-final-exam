@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { MdExitToApp } from "react-icons/md";
 
 const Nav = styled.nav`
   font-family: "Helvetica Neue", sans-serif;
@@ -36,10 +37,9 @@ const NavLink = styled(Link)`
   @media screen and (max-width: 768px) {
     width: 30vw;
     justify-content: flex-end;
-    padding-right: 5vw;
-
+    /* padding-right: 5vw;
     margin-bottom: 5px;
-    margin-right: 5px;
+    margin-right: 5px; */
   }
 `;
 
@@ -127,7 +127,26 @@ const SignInSection = styled.div`
     top: 80px;
     flex-direction: column;
     margin-top: 5px;
+    background-color: #5252;
+    opacity: 100;
+    border-radius: 4px;
+    margin-right: 5px;
   }
 `;
 
-export { Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink, Logo, SignInSection };
+const Logout = styled(MdExitToApp)`
+  height: 35px;
+  width: 35px;
+`;
+
+export {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+  Logo,
+  SignInSection,
+  Logout,
+};

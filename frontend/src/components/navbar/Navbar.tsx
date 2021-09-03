@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, SyntheticEvent } from "react";
 import { useSelector } from "react-redux";
 import { isDesktop } from "react-device-detect";
-import { NavDropdown, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 import {
   NavLink,
@@ -35,7 +35,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
-  const name = useSelector((state: UserInfo) => state.user.name);
+
   const [resourceRerenderNeeded, setResourceRerenderNeeded] = useState(false);
 
   //modal

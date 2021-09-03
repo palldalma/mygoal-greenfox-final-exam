@@ -3,6 +3,16 @@ export interface TranslationGameRequest {
   courseid: number;
 }
 
+export interface Course {
+  id: number;
+  name: string;
+  level: string;
+}
+
+export interface Level {
+  level: string;
+}
+
 export interface TranslationGameResponse {
   questions: Question[];
   answers: Answer[];

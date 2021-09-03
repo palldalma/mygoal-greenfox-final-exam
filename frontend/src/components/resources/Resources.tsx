@@ -11,7 +11,7 @@ import {
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { useEffect } from "react";
-import { GemAndLives, ResourceInfo } from "../../interfaces/resourceinfo";
+import { GemAndLives } from "../../interfaces/resourceinfo";
 
 interface ResourcesProps {
   updateResourceState: Function;
@@ -26,8 +26,6 @@ const Resources: FC<ResourcesProps> = ({
 }) => {
   const id = useSelector((state: UserInfo) => state.user.id);
   const [resources, setResources] = useState({ gem: 0, lives: 0 });
-  // const gem = useSelector((state: ResourceInfo) => state.resources?.gem);
-  // const lives = useSelector((state: ResourceInfo) => state.resources?.lives);
 
   useEffect(() => {
     async function gainResources() {

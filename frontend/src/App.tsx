@@ -11,7 +11,7 @@ import HomePage from "./components/homepage/HomePage";
 import "./App.css";
 
 import StarterPage from "./components/startergames/StarterPage";
-import StarterTranslationPage from "./components/startergames/starterTranslation/StarterTranslationPage";
+import StarterTranslationCourseSelector from "./components/startergames/starterTranslation/StarterTranslationCourseSelector";
 
 function App() {
   console.log("MYGOAL");
@@ -34,7 +34,7 @@ function App() {
             <StarterPage />
           </Route>
           <Route exact path="/starter/translation">
-            <StarterTranslationPage />
+            <StarterTranslationCourseSelector />
           </Route>
         </Switch>
       </BrowserRouter>

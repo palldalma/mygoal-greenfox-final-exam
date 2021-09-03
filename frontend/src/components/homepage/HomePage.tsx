@@ -1,11 +1,10 @@
 import { FC, useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { PageContainer } from "../../styles/page.styles";
 
-import StarterPage from "../startergames/StarterPage";
 import LevelSelector from "./LevelSelector";
 
 export interface HomeProps {}

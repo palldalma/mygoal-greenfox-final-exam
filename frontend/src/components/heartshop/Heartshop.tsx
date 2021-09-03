@@ -73,7 +73,7 @@ const HeartShop: FC<HeartShopProps> = ({
     handleClose();
 
     updateResourceState({ gem: customGem, lives: customLives } as GemAndLives);
-    setRerenderNeeded(true);
+    // setRerenderNeeded(true);
     updateResources({ userid: userid, lives: customLives, gem: customGem });
   };
 

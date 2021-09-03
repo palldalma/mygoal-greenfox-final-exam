@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { BrowserRouter, Route, Switch, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 import { PageContainer } from "../../styles/page.styles";
 
@@ -26,7 +26,7 @@ const StarterPage: FC<StarterPageProps> = () => {
     checkStorage();
   }, [state]);
 
-  useRouteMatch();
+  // useRouteMatch();
   return (
     <PageContainer>
       {isLoggedIn ? <StarterGameSelector /> : <h1>You should login, buddy</h1>}

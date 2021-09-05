@@ -7,3 +7,7 @@ export interface ListMyTranslationCoursesRequest {
 export interface ListMyTranslationCoursesResponse {
   courses: Course[];
 }
+
+export interface ListQuestionsRequest {
+  courseid: number | undefined;
+}

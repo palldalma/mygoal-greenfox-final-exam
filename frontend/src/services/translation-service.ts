@@ -1,5 +1,5 @@
 import config from "../config";
-import { Courses } from "../interfaces/courseinfo";
+import { Courses, QuizLayout } from "../interfaces/courseinfo";
 
 const listCourses = async (userid: string | undefined): Promise<Courses> => {
   if (!userid) {
@@ -27,4 +27,25 @@ const listCourses = async (userid: string | undefined): Promise<Courses> => {
   }
 };
 
-export { listCourses };
+const pullQuestions = async () /*: Promise<QuizLayout | string> */ => {
+  try {
+    const response = await fetch(`${config.url}/starter/translation/:id`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      return result;
+    } else {
+      return "Loading questions failed.";
+    }
+  } catch (err) {
+    return err.message;
+  }
+};
+
+export { listCourses, pullQuestions };

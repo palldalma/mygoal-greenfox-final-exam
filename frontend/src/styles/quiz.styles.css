@@ -1,0 +1,15 @@
+#quizanswers {
+  margin-top: 10px;
+  display: grid;
+  width: 60vw;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  #quizanswers {
+    display: grid;
+    width: 90vw;
+    grid-template-columns: 100%;
+  }
+}

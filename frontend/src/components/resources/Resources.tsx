@@ -25,7 +25,7 @@ const Resources: FC<ResourcesProps> = ({
   resourcesFromStore,
 }) => {
   const id = useSelector((state: UserInfo) => state.user.id);
-  const [resources, setResources] = useState({ gem: 0, lives: 0 });
+  // const [resources, setResources] = useState({ gem: 0, lives: 0 });
 
   useEffect(() => {
     async function gainResources() {
@@ -35,24 +35,26 @@ const Resources: FC<ResourcesProps> = ({
           const lives = data.resources.lives;
 
           let tempResource = { gem: gem, lives: lives };
-          setResources(tempResource as GemAndLives);
+          // setResources(tempResource as GemAndLives);
+          console.log("resource component");
+
           updateResourceState(tempResource);
         }
       });
     }
     gainResources();
-  }, [resourcesFromStore.lives]);
+  }, []);
 
   return (
     <div>
       <ResourceContainer>
         <div>
           <Lives />
-          <LiveCounter>{resources.lives}</LiveCounter>
+          <LiveCounter>{resourcesFromStore.lives}</LiveCounter>
         </div>
         <div>
           <Gems />
-          <GemCounter>{resources.gem}</GemCounter>
+          <GemCounter>{resourcesFromStore.gem}</GemCounter>
         </div>
       </ResourceContainer>
     </div>

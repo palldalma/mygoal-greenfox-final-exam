@@ -55,12 +55,12 @@ const HeartShop: FC<HeartShopProps> = ({
     e.preventDefault();
 
     if (
-      customGem &&
-      customLives &&
-      initialLives &&
-      initialGem &&
-      lives &&
-      gem
+      customGem !== undefined &&
+      customLives !== undefined &&
+      initialLives !== undefined &&
+      initialGem !== undefined &&
+      lives !== undefined &&
+      gem !== undefined
     ) {
       if (customLives < 5 && customLives >= 0 && customGem >= 100) {
         setCustomLives(customLives + 1);

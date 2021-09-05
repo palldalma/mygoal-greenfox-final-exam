@@ -18,14 +18,6 @@ const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [courses, setCourses] = useState([{ id: 0, name: "" }]);
 
-    // const courses = {
-    //   courses: [
-    //     { id: 1, name: "course1" },
-    //     { id: 2, name: "course2" },
-    //     { id: 3, name: "course3" },
-    //   ],
-    // };
-
     useEffect(() => {
       const checkStorage = (): void => {
         if (token) {
@@ -54,7 +46,7 @@ const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps
             {courses.map((course) => {
               return (
                 <TranslationTopic
-                  to={`/starter/translation/:${course.id}`}
+                  to={`/starter/translation/${course.id}`}
                   key={course.id}
                 >
                   {course.name}

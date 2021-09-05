@@ -25,8 +25,19 @@ export interface Question {
 }
 
 export interface Answer {
-  id: number;
+  question: string;
+  answer: string;
+  courseid: number;
   questionid: number;
   iscorrect: number;
-  answer: string;
+}
+
+export interface ReadyQuizObject {
+  question: string;
+  answers: [
+    { answer: string; iscorrect: number },
+    { answer: string; iscorrect: number },
+    { answer: string; iscorrect: number },
+    { answer: string; iscorrect: number }
+  ];
 }

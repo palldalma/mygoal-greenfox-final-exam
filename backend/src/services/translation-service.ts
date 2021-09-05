@@ -3,14 +3,18 @@ import { DbResult } from "../models/data/db-results";
 import {
   ListMyTranslationCoursesRequest,
   ListMyTranslationCoursesResponse,
+  ListQuestionsRequest,
 } from "../models/data/translationgame";
-import { Level } from "../models/dto/translationgame";
+import {
+  Answer,
+  Course,
+  Level,
+  ReadyQuizObject,
+} from "../models/dto/translationgame";
 
 const listCourses = async (
   request: ListMyTranslationCoursesRequest
-
-  //ha megadom a response type-ot, baromságot ír ki
-) /*:Promise<ListMyTranslationCoursesResponse> */ => {
+): Promise<ListMyTranslationCoursesResponse> => {
   const { userid } = request;
 
   const data: DbResult = await db
@@ -29,12 +33,72 @@ const listCourses = async (
       throw new Error(`database error: ${error.message}`);
     });
 
-  const courses =
-    courseData.results as unknown as ListMyTranslationCoursesResponse;
+  console.log(courseData);
+
+  const courses = courseData.results as Course[];
 
   return new Promise((resolve) => resolve({ courses: courses }));
 };
 
+const pullQuestions = async (
+  request: ListQuestionsRequest
+): Promise<ReadyQuizObject[] | string> => {
+  const { courseid } = request;
+
+  const data: DbResult = await db
+    .query(
+      `SELECT question, answer, courseid, questionid, iscorrect FROM question_translation q LEFT JOIN answer_translation a ON q.id=a.questionid WHERE courseid = ?`,
+      [courseid]
+    )
+    .catch((error) => {
+      throw new Error(`database error: ${error.message}`);
+    });
+
+  const course = data.results as Answer[];
+
+  let questionids: number[] = [];
+  if (course.length !== 0) {
+    course.map((question) => {
+      if (!questionids.includes(question.questionid)) {
+        questionids.push(question.questionid);
+      }
+    });
+  } else {
+    return "This course is empty.";
+  }
+
+  const createQuizReturnValue = (course: Answer[]): ReadyQuizObject[] => {
+    let questionCollection: any = [];
+
+    questionids.forEach((questionid) => {
+      let currentQuestion = "";
+      let currentAnswers = [];
+      for (let i = 0; i < course.length; i++) {
+        if (currentQuestion === "" && questionid === course[i].questionid) {
+          currentQuestion = course[i].question;
+        }
+
+        if (course[i].questionid === questionid)
+          currentAnswers.push({
+            answer: course[i].answer,
+            iscorrect: course[i].iscorrect,
+          });
+      }
+      let readyQuizObject = {
+        question: currentQuestion,
+        answers: currentAnswers,
+      };
+
+      questionCollection.push(readyQuizObject);
+    });
+
+    return questionCollection as ReadyQuizObject[];
+  };
+
+  return createQuizReturnValue(course);
+};
+
 export const translationService = {
   listCourses,
+  pullQuestions,
 };

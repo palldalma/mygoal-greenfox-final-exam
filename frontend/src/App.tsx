@@ -12,9 +12,9 @@ import "./App.css";
 
 import StarterPage from "./components/startergames/StarterPage";
 import StarterTranslationCourseSelector from "./components/startergames/starterTranslation/StarterTranslationCourseSelector";
+import Quiz from "./components/quiz/Quiz";
 
 function App() {
-  console.log("MYGOAL");
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -35,6 +35,9 @@ function App() {
           </Route>
           <Route exact path="/starter/translation">
             <StarterTranslationCourseSelector />
+          </Route>
+          <Route exact path="/starter/translation/:id">
+            <Quiz />
           </Route>
         </Switch>
       </BrowserRouter>

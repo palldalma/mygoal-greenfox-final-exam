@@ -4,26 +4,27 @@ import { useSelector } from "react-redux";
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { PageContainer } from "../../styles/page.styles";
+// import LevelSelector from "./LevelSelector";
+// // import LevelSelector from "./LevelSelector";
 
-import LevelSelector from "./LevelSelector";
+import LevelSelector from "./";
 
 export interface HomeProps {}
 
 export const Home: FC<HomeProps> = () => {
-  const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const checkStorage = (): void => {
+    const checkStore = (): void => {
       if (token) {
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
       }
     };
-    checkStorage();
-  }, [state]);
+    checkStore();
+  }, [token]);
 
   return (
     <PageContainer>

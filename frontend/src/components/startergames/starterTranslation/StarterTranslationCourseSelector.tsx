@@ -8,25 +8,26 @@ import {
   TranslationTopic,
 } from "../../../styles/translation.styles";
 
-export interface StarterTranslationCourseSelectorProps {}
+export interface StarterTranslationCourseSelectorProps {
+  updateCourseid: Function;
+}
 
 const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps> =
-  () => {
-    const state = useSelector((state) => state);
+  ({ updateCourseid }) => {
     const token = useSelector((state: UserInfo) => state.user.token);
     const id = useSelector((state: UserInfo) => state.user.id);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [courses, setCourses] = useState([{ id: 0, name: "" }]);
 
     useEffect(() => {
-      const checkStorage = (): void => {
+      const checkStore = (): void => {
         if (token) {
           setLoggedIn(true);
         } else {
           setLoggedIn(false);
         }
       };
-      checkStorage();
+      checkStore();
 
       async function getMyCourses() {
         await listCourses(id).then((data) => {
@@ -37,8 +38,11 @@ const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps
       }
 
       getMyCourses();
-    }, [state]);
+    }, [token, id]);
 
+    const onClickHandler = (courseid: number) => {
+      updateCourseid({ courseid: courseid });
+    };
     return (
       <>
         {isLoggedIn ? (
@@ -48,6 +52,9 @@ const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps
                 <TranslationTopic
                   to={`/starter/translation/${course.id}`}
                   key={course.id}
+                  onClick={() => {
+                    onClickHandler(course.id);
+                  }}
                 >
                   {course.name}
                 </TranslationTopic>

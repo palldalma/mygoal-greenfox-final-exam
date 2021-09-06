@@ -1,5 +1,9 @@
 import config from "../config";
-import { Courses, QuizLayout } from "../interfaces/courseinfo";
+import {
+  Courses,
+  QuestionWithRelevantAnswers,
+  QuizLayout,
+} from "../interfaces/courseinfo";
 
 const listCourses = async (userid: string | undefined): Promise<Courses> => {
   if (!userid) {
@@ -27,16 +31,23 @@ const listCourses = async (userid: string | undefined): Promise<Courses> => {
   }
 };
 
-const pullQuestions = async () /*: Promise<QuizLayout | string> */ => {
+const pullQuestions = async (
+  courseid: number
+): Promise<QuestionWithRelevantAnswers[] | string> => {
   try {
-    const response = await fetch(`${config.url}/starter/translation/:id`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${config.url}/starter/translation/${courseid}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const result = await response.json();
+    const result: QuestionWithRelevantAnswers[] = await response.json();
+
+    // const returnValue = result as QuizLayout;
 
     if (response.status === 200) {
       return result;

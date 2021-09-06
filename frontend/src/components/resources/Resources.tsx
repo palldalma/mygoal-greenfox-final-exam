@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { getResources } from "../../services/resource-service";
 import {
@@ -36,14 +36,13 @@ const Resources: FC<ResourcesProps> = ({
 
           let tempResource = { gem: gem, lives: lives };
           // setResources(tempResource as GemAndLives);
-          console.log("resource component");
 
           updateResourceState(tempResource);
         }
       });
     }
     gainResources();
-  }, []);
+  }, [id, updateResourceState]);
 
   return (
     <div>

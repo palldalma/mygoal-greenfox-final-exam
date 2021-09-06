@@ -33,7 +33,6 @@ const activeStyle = {
 const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
   const [visibility, setVisibility] = useState(isDesktop);
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
 
   const [resourceRerenderNeeded, setResourceRerenderNeeded] = useState(false);
@@ -65,7 +64,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
       }
     };
     checkStorage();
-  }, [state]);
+  }, [token]);
 
   return (
     <>

@@ -11,8 +11,8 @@ import HomePage from "./components/homepage/HomePage";
 import "./App.css";
 
 import StarterPage from "./components/startergames/StarterPage";
-import StarterTranslationCourseSelector from "./components/startergames/starterTranslation/StarterTranslationCourseSelector";
-import Quiz from "./components/quiz/Quiz";
+import Quiz from "./components/quiz/";
+import StarterTranslationCourseSelector from "./components/startergames/starterTranslation/";
 
 function App() {
   return (

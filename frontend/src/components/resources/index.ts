@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch: Function) => {
 
 const mapStateToProps = (state: any) => {
   const resourcesFromStore = state.resources;
+
   return {
     resourcesFromStore,
   };

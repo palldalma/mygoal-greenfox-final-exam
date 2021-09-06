@@ -1,6 +1,9 @@
 import { FC, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { QuizLayout } from "../../interfaces/courseinfo";
+import {
+  QuestionWithRelevantAnswers,
+  QuizLayout,
+} from "../../interfaces/courseinfo";
 import { UserInfo } from "../../interfaces/logininfo";
 import { pullQuestions } from "../../services/translation-service";
 import {
@@ -10,13 +13,21 @@ import {
 } from "../../styles/quiz.styles";
 import "../../styles/quiz.styles.css";
 
-export interface QuizProps {}
+export interface QuizProps {
+  courseDetailsFromStore: any;
+  loadCourseToStore: Function;
+}
 
-const Quiz: FC<QuizProps> = () => {
-  const state = useSelector((state) => state);
+interface QuizState {
+  quiz: {
+    challenges: QuestionWithRelevantAnswers[];
+  };
+}
+
+const Quiz: FC<QuizProps> = ({ courseDetailsFromStore, loadCourseToStore }) => {
   const token = useSelector((state: UserInfo) => state.user.token);
+  const challenges = useSelector((state: QuizState) => state.quiz.challenges);
   const [isLoggedIn, setLoggedIn] = useState(false);
-
   useEffect(() => {
     const checkStore = (): void => {
       if (token) {
@@ -26,52 +37,45 @@ const Quiz: FC<QuizProps> = () => {
       }
     };
     checkStore();
-  }, [state]);
 
-  const testCourse = pullQuestions();
-  console.log(testCourse);
+    async function loadCourse() {
+      await pullQuestions(courseDetailsFromStore.courseid).then((data) => {
+        if (data.length !== 0 && data !== undefined) {
+          console.log("belemegy");
 
-  // {
-  //   questionCollection: [
-  //     {
-  //       question: "question1",
-  //       answers: [
-  //         { answer: "answer1", iscorrect: 0 },
-  //         { answer: "answer2", iscorrect: 0 },
-  //         { answer: "answer3", iscorrect: 0 },
-  //         { answer: "answer4", iscorrect: 1 },
-  //       ],
-  //     },
-  //     {
-  //       question: "question2",
-  //       answers: [
-  //         { answer: "answer1", iscorrect: 1 },
-  //         { answer: "answer2", iscorrect: 0 },
-  //         { answer: "answer3", iscorrect: 0 },
-  //         { answer: "answer4", iscorrect: 0 },
-  //       ],
-  //     },
-  //   ],
-  // };
+          // const temp = data.questionCollection;
+          // console.log(temp);
+
+          // course = data.questionCollection;
+          loadCourseToStore(data);
+        }
+      });
+    }
+
+    loadCourse();
+  }, []);
 
   return (
     <>
       {isLoggedIn ? (
         <QuizContainer>
-          {/* {testCourse.questionCollection.map((question) => {
+          {challenges.map((question, index) => {
             return (
-              <>
+              <div key={index}>
                 <QuestionBox>{question.question}</QuestionBox>
 
                 <div id="quizanswers">
-                  <AnswerBox>{question.answers[0].answer}</AnswerBox>
-                  <AnswerBox>{question.answers[1].answer}</AnswerBox>
-                  <AnswerBox>{question.answers[2].answer}</AnswerBox>
-                  <AnswerBox>{question.answers[3].answer}</AnswerBox>
+                  {question.answers.map((answer, index) => {
+                    return (
+                      <AnswerBox key={index}>
+                        {question.answers[index].answer}
+                      </AnswerBox>
+                    );
+                  })}
                 </div>
-              </>
+              </div>
             );
-          })} */}
+          })}
         </QuizContainer>
       ) : (
         <QuizContainer>

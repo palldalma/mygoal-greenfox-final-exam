@@ -19,5 +19,14 @@ export interface Answer {
 }
 
 export interface QuizLayout {
-  questionCollection: QuestionWithRelevantAnswers[];
+  questionCollection?: QuestionWithRelevantAnswers[];
+  error?: string;
 }
+
+// export interface SelectedLevel {
+//   level: string;
+// }
+
+// export interface SelectedCourse {
+//   courseid: number;
+// }

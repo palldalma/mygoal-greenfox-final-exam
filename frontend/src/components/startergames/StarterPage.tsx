@@ -9,20 +9,19 @@ import StarterGameSelector from "./StarterGameSelector";
 export interface StarterPageProps {}
 
 const StarterPage: FC<StarterPageProps> = () => {
-  const state = useSelector((state) => state);
   const token = useSelector((state: UserInfo) => state.user.token);
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const checkStorage = (): void => {
+    const checkStore = (): void => {
       if (token) {
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
       }
     };
-    checkStorage();
-  }, [state]);
+    checkStore();
+  }, [token]);
 
   return (
     <PageContainer>

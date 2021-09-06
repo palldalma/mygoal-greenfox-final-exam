@@ -60,7 +60,6 @@ const updateResources = async (
       });
 
       const result: ResourceInfo = await response.json();
-      console.log(result);
 
       return result;
       // if (response.status === 200) {

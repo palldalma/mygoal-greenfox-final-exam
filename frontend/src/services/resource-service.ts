@@ -6,7 +6,8 @@ import {
 } from "../interfaces/resourceinfo";
 
 const getResources = async (
-  userid: string | undefined
+  userid: string | undefined,
+  token: string | undefined
 ): Promise<ResourceInfo> => {
   if (!userid) {
     return { error: "Userid is missing." };
@@ -18,6 +19,7 @@ const getResources = async (
       headers: {
         "Content-Type": "application/json",
         userid: userid,
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -35,7 +37,8 @@ const getResources = async (
 };
 
 const updateResources = async (
-  requestedChanges: updateResourceRequest
+  requestedChanges: updateResourceRequest,
+  token: string | undefined
 ) /* : Promise<ResourceInfo> */ => {
   if (!requestedChanges.userid) {
     return { error: "Userid is missing." };
@@ -52,6 +55,7 @@ const updateResources = async (
         headers: {
           "Content-Type": "application/json",
           userid: requestedChanges.userid,
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           gem: requestedChanges.gem,

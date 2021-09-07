@@ -24,6 +24,7 @@ const HeartShop: FC<HeartShopProps> = ({
   setRerenderNeeded,
 }) => {
   const userid = useSelector((state: UserInfo) => state.user?.id);
+  const token = useSelector((state: UserInfo) => state.user?.token);
   const gem = useSelector((state: ResourceInfo) => state.resources?.gem);
   const lives = useSelector((state: ResourceInfo) => state.resources?.lives);
 
@@ -74,7 +75,10 @@ const HeartShop: FC<HeartShopProps> = ({
 
     updateResourceState({ gem: customGem, lives: customLives } as GemAndLives);
     // setRerenderNeeded(true);
-    updateResources({ userid: userid, lives: customLives, gem: customGem });
+    updateResources(
+      { userid: userid, lives: customLives, gem: customGem },
+      token
+    );
   };
 
   return (

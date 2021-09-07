@@ -4,10 +4,8 @@ import { useSelector } from "react-redux";
 
 import { UserInfo } from "../../interfaces/logininfo";
 import { PageContainer } from "../../styles/page.styles";
-// import LevelSelector from "./LevelSelector";
-// // import LevelSelector from "./LevelSelector";
 
-import LevelSelector from "./";
+import LevelSelector from "../levelselector";
 
 export interface HomeProps {}
 

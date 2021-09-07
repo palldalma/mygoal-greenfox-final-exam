@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   QuestionWithRelevantAnswers,
   QuizLayout,
@@ -7,15 +7,21 @@ import {
 import { UserInfo } from "../../interfaces/logininfo";
 import { pullQuestions } from "../../services/translation-service";
 import {
+  hideLoadingSign,
+  showLoadingSign,
+} from "../../store/actions/loadingAction";
+import {
   AnswerBox,
   QuestionBox,
   QuizContainer,
 } from "../../styles/quiz.styles";
 import "../../styles/quiz.styles.css";
+import Loader from "../loading/";
 
 export interface QuizProps {
   courseDetailsFromStore: any;
   loadCourseToStore: Function;
+  loading: string[];
 }
 
 interface QuizState {
@@ -24,10 +30,17 @@ interface QuizState {
   };
 }
 
-const Quiz: FC<QuizProps> = ({ courseDetailsFromStore, loadCourseToStore }) => {
+const Quiz: FC<QuizProps> = ({
+  courseDetailsFromStore,
+  loadCourseToStore,
+  loading,
+}) => {
   const token = useSelector((state: UserInfo) => state.user.token);
   const challenges = useSelector((state: QuizState) => state.quiz.challenges);
   const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const checkStore = (): void => {
       if (token) {
@@ -39,17 +52,16 @@ const Quiz: FC<QuizProps> = ({ courseDetailsFromStore, loadCourseToStore }) => {
     checkStore();
 
     async function loadCourse() {
-      await pullQuestions(courseDetailsFromStore.courseid).then((data) => {
-        if (data.length !== 0 && data !== undefined) {
-          console.log("belemegy");
-
-          // const temp = data.questionCollection;
-          // console.log(temp);
-
-          // course = data.questionCollection;
-          loadCourseToStore(data);
+      dispatch(showLoadingSign("starter/translation"));
+      await pullQuestions(courseDetailsFromStore.courseid, token).then(
+        (data) => {
+          if (data.length !== 0 && data !== undefined) {
+            loadCourseToStore(data);
+          }
         }
-      });
+      );
+
+      dispatch(hideLoadingSign("starter/translation"));
     }
 
     loadCourse();
@@ -57,7 +69,7 @@ const Quiz: FC<QuizProps> = ({ courseDetailsFromStore, loadCourseToStore }) => {
 
   return (
     <>
-      {isLoggedIn ? (
+      {isLoggedIn && loading.length === 0 ? (
         <QuizContainer>
           {challenges.map((question, index) => {
             return (
@@ -79,7 +91,7 @@ const Quiz: FC<QuizProps> = ({ courseDetailsFromStore, loadCourseToStore }) => {
         </QuizContainer>
       ) : (
         <QuizContainer>
-          <h1>You should login, buddy.</h1>
+          <Loader />
         </QuizContainer>
       )}
     </>

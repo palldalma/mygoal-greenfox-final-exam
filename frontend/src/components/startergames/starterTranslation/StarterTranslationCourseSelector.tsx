@@ -30,7 +30,7 @@ const StarterTranslationCourseSelector: FC<StarterTranslationCourseSelectorProps
       checkStore();
 
       async function getMyCourses() {
-        await listCourses(id).then((data) => {
+        await listCourses(id, token).then((data) => {
           if (data.courses) {
             setCourses(data.courses);
           }

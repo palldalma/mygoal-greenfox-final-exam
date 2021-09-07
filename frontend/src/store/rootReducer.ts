@@ -4,12 +4,14 @@ import { userReducer } from "./reducers/userReducer";
 import { resourceReducer } from "./reducers/resourceReducer";
 import { courseReducer } from "./reducers/courseReducer";
 import { quizReducer } from "./reducers/quizReducer";
+import { loadingReducer } from "./reducers/loadingReducer";
 
 const appReducer = combineReducers({
   user: userReducer,
   resources: resourceReducer,
   course: courseReducer,
   quiz: quizReducer,
+  loading: loadingReducer,
 });
 
 const rootReducer = (state: RootStateOrAny | undefined, action: AnyAction) => {

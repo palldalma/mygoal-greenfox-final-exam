@@ -1,0 +1,11 @@
+.non-visible {
+  visibility: hidden;
+}
+
+.visible {
+  height: 100px;
+  width: 100px;
+  top: 20px;
+  display: flex;
+  align-self: center;
+}

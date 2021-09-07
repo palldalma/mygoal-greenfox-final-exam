@@ -4,11 +4,9 @@ import LevelSelector from "./LevelSelector";
 
 import { updateLevel } from "../../store/actions/courseAction";
 
-// import { SelectedLevel } from "../../interfaces/courseinfo";
-
 const mapDispatchToProps = (dispatch: Function) => {
   return {
-    updateLevel: (selectedLevel: /*SelectedLevel*/ string) =>
+    updateLevel: (selectedLevel: string) =>
       dispatch(updateLevel(selectedLevel)),
   };
 };

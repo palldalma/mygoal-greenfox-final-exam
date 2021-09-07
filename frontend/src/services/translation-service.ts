@@ -5,7 +5,10 @@ import {
   QuizLayout,
 } from "../interfaces/courseinfo";
 
-const listCourses = async (userid: string | undefined): Promise<Courses> => {
+const listCourses = async (
+  userid: string | undefined,
+  token: string | undefined
+): Promise<Courses> => {
   if (!userid) {
     return { error: "Userid is missing." };
   }
@@ -16,6 +19,7 @@ const listCourses = async (userid: string | undefined): Promise<Courses> => {
       headers: {
         "Content-Type": "application/json",
         userid: userid,
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -32,7 +36,8 @@ const listCourses = async (userid: string | undefined): Promise<Courses> => {
 };
 
 const pullQuestions = async (
-  courseid: number
+  courseid: number,
+  token: string | undefined
 ): Promise<QuestionWithRelevantAnswers[] | string> => {
   try {
     const response = await fetch(
@@ -41,13 +46,12 @@ const pullQuestions = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
       }
     );
 
     const result: QuestionWithRelevantAnswers[] = await response.json();
-
-    // const returnValue = result as QuizLayout;
 
     if (response.status === 200) {
       return result;

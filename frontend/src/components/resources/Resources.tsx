@@ -21,15 +21,16 @@ interface ResourcesProps {
 
 const Resources: FC<ResourcesProps> = ({
   updateResourceState,
-  rerenderNeeded,
+
   resourcesFromStore,
 }) => {
   const id = useSelector((state: UserInfo) => state.user.id);
+  const token = useSelector((state: UserInfo) => state.user.token);
   // const [resources, setResources] = useState({ gem: 0, lives: 0 });
 
   useEffect(() => {
     async function gainResources() {
-      await getResources(id).then((data) => {
+      await getResources(id, token).then((data) => {
         if (data.resources) {
           const gem = data.resources.gem;
           const lives = data.resources.lives;

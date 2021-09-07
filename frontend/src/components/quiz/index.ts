@@ -8,9 +8,11 @@ import Quiz from "./Quiz";
 const mapStateToProps = (state: any) => {
   const courseDetailsFromStore = state.course;
   const quizFromStore = state.quiz;
+  const loading = state.loading;
   return {
     courseDetailsFromStore,
     quizFromStore,
+    loading,
   };
 };
 

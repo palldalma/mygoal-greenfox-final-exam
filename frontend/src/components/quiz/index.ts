@@ -9,10 +9,16 @@ const mapStateToProps = (state: any) => {
   const courseDetailsFromStore = state.course;
   const quizFromStore = state.quiz;
   const loading = state.loading;
+  const token = state.user.token;
+  const challenges = state.quiz.challenges;
+  const loggedIn = state.loggedIn;
   return {
     courseDetailsFromStore,
     quizFromStore,
     loading,
+    token,
+    challenges,
+    loggedIn,
   };
 };
 

@@ -13,4 +13,17 @@ const mapDispatchToProps = (dispatch: Function) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Heartshop);
+const mapStateToProps = (state: any) => {
+  const userid = state.user.id;
+  const token = state.user.token;
+  const gem = state.resources.gem;
+  const lives = state.resources.lives;
+  return {
+    userid,
+    token,
+    gem,
+    lives,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Heartshop);

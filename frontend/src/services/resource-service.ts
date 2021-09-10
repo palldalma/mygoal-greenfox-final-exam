@@ -25,13 +25,12 @@ const getResources = async (
 
     const result: ResourceInfo = await response.json();
 
-    return result;
-    // if (response.status === 200) {
-    //   return { gem: result, live: result.token, id: result.id };
-    // } else {
-    //   return { error: result.message };
-    // }
-  } catch (err) {
+    if (response.status === 200) {
+      return result;
+    } else {
+      return { error: "Couldn't fetch resources" };
+    }
+  } catch (err: any) {
     return { error: err.message };
   }
 };
@@ -65,14 +64,13 @@ const updateResources = async (
 
       const result: ResourceInfo = await response.json();
 
-      return result;
-      // if (response.status === 200) {
-      //   return { gem: result, live: result.token, id: result.id };
-      // } else {
-      //   return { error: result.message };
-      // }
+      if (response.status === 200) {
+        return result;
+      } else {
+        return { error: "couldn't update resources" };
+      }
     }
-  } catch (err) {
+  } catch (err: any) {
     return { error: err.message };
   }
 };

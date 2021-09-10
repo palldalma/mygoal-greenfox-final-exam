@@ -15,19 +15,17 @@ import { GemAndLives } from "../../interfaces/resourceinfo";
 
 interface ResourcesProps {
   updateResourceState: Function;
-  rerenderNeeded: boolean;
   resourcesFromStore: GemAndLives;
+  id: string;
+  token: string;
 }
 
 const Resources: FC<ResourcesProps> = ({
   updateResourceState,
-
   resourcesFromStore,
+  token,
+  id,
 }) => {
-  const id = useSelector((state: UserInfo) => state.user.id);
-  const token = useSelector((state: UserInfo) => state.user.token);
-  // const [resources, setResources] = useState({ gem: 0, lives: 0 });
-
   useEffect(() => {
     async function gainResources() {
       await getResources(id, token).then((data) => {
@@ -36,7 +34,6 @@ const Resources: FC<ResourcesProps> = ({
           const lives = data.resources.lives;
 
           let tempResource = { gem: gem, lives: lives };
-          // setResources(tempResource as GemAndLives);
 
           updateResourceState(tempResource);
         }

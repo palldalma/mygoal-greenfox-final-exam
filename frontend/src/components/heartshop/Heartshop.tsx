@@ -1,8 +1,6 @@
 import { SyntheticEvent } from "react";
 import { FC, useState } from "react";
-import { useSelector } from "react-redux";
-import { UserInfo } from "../../interfaces/logininfo";
-import { GemAndLives, ResourceInfo } from "../../interfaces/resourceinfo";
+import { GemAndLives } from "../../interfaces/resourceinfo";
 import { updateResources } from "../../services/resource-service";
 import {
   PlusSign,
@@ -15,22 +13,23 @@ import { Gems, Lives } from "../../styles/resources.styles";
 export interface HeartShopProps {
   handleClose: Function;
   updateResourceState: Function;
-  setRerenderNeeded: Function;
+
+  userid: string;
+  token: string;
+  gem: number;
+  lives: number;
 }
 
 const HeartShop: FC<HeartShopProps> = ({
   handleClose,
   updateResourceState,
-  setRerenderNeeded,
+  userid,
+  token,
+  gem,
+  lives,
 }) => {
-  const userid = useSelector((state: UserInfo) => state.user?.id);
-  const token = useSelector((state: UserInfo) => state.user?.token);
-  const gem = useSelector((state: ResourceInfo) => state.resources?.gem);
-  const lives = useSelector((state: ResourceInfo) => state.resources?.lives);
-
   const initialGem = gem;
   const initialLives = lives;
-
   const [customGem, setCustomGem] = useState(gem);
   const [customLives, setCustomLives] = useState(lives);
 
@@ -72,9 +71,7 @@ const HeartShop: FC<HeartShopProps> = ({
 
   const handleSave = () => {
     handleClose();
-
     updateResourceState({ gem: customGem, lives: customLives } as GemAndLives);
-    // setRerenderNeeded(true);
     updateResources(
       { userid: userid, lives: customLives, gem: customGem },
       token

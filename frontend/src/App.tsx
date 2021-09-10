@@ -6,21 +6,22 @@ import store from "./store";
 import Login from "./components/login";
 import Registration from "./components/registration/Registration";
 import Navbar from "./components/navbar";
-import HomePage from "./components/homepage/HomePage";
+import HomePage from "./components/homepage/";
 
 import "./App.css";
 
-import StarterPage from "./components/startergames/StarterPage";
+import GameSelector from "./components/gameSelector";
 import Quiz from "./components/quiz/";
-import StarterTranslationCourseSelector from "./components/startergames/starterTranslation/";
+
 import Loader from "./components/loading/";
+import ListOfCourses from "./components/listofcourses";
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
-
+        <Loader />
         <Switch>
           <Route exact path="/">
             <HomePage />
@@ -32,10 +33,10 @@ function App() {
             <Registration />
           </Route>
           <Route exact path="/starter">
-            <StarterPage />
+            <GameSelector />
           </Route>
           <Route exact path="/starter/translation">
-            <StarterTranslationCourseSelector />
+            <ListOfCourses />
           </Route>
           <Route exact path="/starter/translation/:id">
             <Quiz />

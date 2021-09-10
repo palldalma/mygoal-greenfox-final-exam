@@ -12,9 +12,10 @@ import {
 
 interface LoginProps {
   saveUserInfo: Function;
+  setLoggedIn: Function;
 }
 
-const Login: FC<LoginProps> = ({ saveUserInfo }) => {
+const Login: FC<LoginProps> = ({ saveUserInfo, setLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -51,6 +52,7 @@ const Login: FC<LoginProps> = ({ saveUserInfo }) => {
           name: response.name,
           id: response.id,
         });
+        setLoggedIn(true);
         history.push("/");
       } else {
         setFeedback("Something went wrong.");
@@ -88,7 +90,7 @@ const Login: FC<LoginProps> = ({ saveUserInfo }) => {
             });
           }}
         />
-        <Button>Submit</Button>
+        <Button>SIGN IN</Button>
         <FeedbackField style={feedbackStyle}>{feedback}</FeedbackField>
       </UserForm>
     </FormContainer>

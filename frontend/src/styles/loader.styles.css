@@ -8,4 +8,6 @@
   top: 20px;
   display: flex;
   align-self: center;
+  justify-content: center;
+  z-index: 10;
 }

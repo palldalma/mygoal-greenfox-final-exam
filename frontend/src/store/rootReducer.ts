@@ -5,6 +5,7 @@ import { resourceReducer } from "./reducers/resourceReducer";
 import { courseReducer } from "./reducers/courseReducer";
 import { quizReducer } from "./reducers/quizReducer";
 import { loadingReducer } from "./reducers/loadingReducer";
+import { loginReducer } from "./reducers/loginReducer";
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   course: courseReducer,
   quiz: quizReducer,
   loading: loadingReducer,
+  loggedIn: loginReducer,
 });
 
 const rootReducer = (state: RootStateOrAny | undefined, action: AnyAction) => {

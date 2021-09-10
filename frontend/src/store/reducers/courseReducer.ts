@@ -6,7 +6,7 @@ interface CourseState {
 }
 
 const initialState: CourseState = {
-  level: "string",
+  level: "",
   courseid: 0,
 };
 

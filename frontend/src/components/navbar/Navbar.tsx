@@ -1,5 +1,4 @@
-import { FC, useState, useEffect, SyntheticEvent } from "react";
-import { useSelector } from "react-redux";
+import { FC, useState, SyntheticEvent } from "react";
 import { isDesktop } from "react-device-detect";
 import { Modal } from "react-bootstrap";
 
@@ -14,7 +13,6 @@ import {
   SignInSection,
   Logout,
 } from "../../styles/navbar.styles";
-import { UserInfo } from "../../interfaces/logininfo";
 
 import logo from "../../assets/logo.png";
 import "../../styles/navbar.styles.css";
@@ -24,21 +22,20 @@ import Resources from "../resources/";
 
 export interface NavbarProps {
   deleteUserInfo: Function;
+  setLoggedIn: Function;
+  loggedIn: boolean;
 }
 
 const activeStyle = {
   backgroundColor: "#5252",
 };
 
-const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
+const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn }) => {
   const [visibility, setVisibility] = useState(isDesktop);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const token = useSelector((state: UserInfo) => state.user.token);
-
-  const [resourceRerenderNeeded, setResourceRerenderNeeded] = useState(false);
 
   //modal
   const [show, setShow] = useState(false);
+
   const handleClose = () => {
     setShow(false);
   };
@@ -53,19 +50,6 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
     deleteUserInfo();
   };
 
-  useEffect(() => {
-    const checkStorage = (): void => {
-      if (token) {
-        setLoggedIn(true);
-        console.log("you are logged in");
-      } else {
-        setLoggedIn(false);
-        console.log("you are logged out");
-      }
-    };
-    checkStorage();
-  }, [token]);
-
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -73,10 +57,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
           <Modal.Title>Buy extra life</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <HeartShop
-            handleClose={handleClose}
-            setRerenderNeeded={setResourceRerenderNeeded}
-          />
+          <HeartShop handleClose={handleClose} />
         </Modal.Body>
       </Modal>
 
@@ -89,10 +70,10 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
 
         <Bars onClick={showMenu} />
 
-        {isLoggedIn ? (
+        {loggedIn ? (
           <>
             <button id="heartshop" onClick={handleShow}>
-              <Resources rerenderNeeded={resourceRerenderNeeded} />
+              <Resources />
             </button>
 
             <SignInSection
@@ -108,16 +89,6 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo }) => {
                   <Logout />
                 </NavLink>
               </NavMenu>
-
-              {/* <NavDropdown title={name} id="userdropdown">
-                <NavDropdown.Item
-                  id="dropdownitem"
-                  to="/users/logout"
-                  onClick={handleLogOut}
-                >
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown> */}
             </SignInSection>
           </>
         ) : (

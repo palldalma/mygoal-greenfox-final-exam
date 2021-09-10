@@ -15,9 +15,13 @@ const mapDispatchToProps = (dispatch: Function) => {
 
 const mapStateToProps = (state: any) => {
   const resourcesFromStore = state.resources;
+  const id = state.user.id;
+  const token = state.user.token;
 
   return {
     resourcesFromStore,
+    id,
+    token,
   };
 };
 

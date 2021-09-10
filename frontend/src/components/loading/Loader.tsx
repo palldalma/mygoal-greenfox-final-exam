@@ -10,11 +10,14 @@ export interface LoaderProps {
 
 const Loader: FC<LoaderProps> = ({ loading }) => {
   return (
-    <LoaderWrapper id="loaderwrapper">
+    <LoaderWrapper
+      id="loaderwrapper"
+      className={`${loading.length === 0 ? "non-visible" : "visible"}`}
+    >
       <Spinner
         animation="border"
         role="status"
-        className={`${loading.length === 0 ? "non-visible" : "visible"}`}
+        style={{ height: "40px", width: "40px" }}
       >
         <span className="visually-hidden">Loading...</span>
       </Spinner>

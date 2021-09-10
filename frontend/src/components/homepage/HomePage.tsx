@@ -1,32 +1,20 @@
-import { FC, useState, useEffect } from "react";
-
-import { useSelector } from "react-redux";
-
-import { UserInfo } from "../../interfaces/logininfo";
+import { FC } from "react";
+import LevelSelector from "../levelselector";
+import { Redirect } from "react-router";
 import { PageContainer } from "../../styles/page.styles";
 
-import LevelSelector from "../levelselector";
+export interface HomeProps {
+  loggedIn: boolean;
+}
 
-export interface HomeProps {}
-
-export const Home: FC<HomeProps> = () => {
-  const token = useSelector((state: UserInfo) => state.user.token);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const checkStore = (): void => {
-      if (token) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    };
-    checkStore();
-  }, [token]);
-
+export const Home: FC<HomeProps> = ({ loggedIn }) => {
   return (
     <PageContainer>
-      {isLoggedIn ? <LevelSelector /> : <h1>You should login, buddy.</h1>}
+      {loggedIn ? (
+        <LevelSelector />
+      ) : (
+        <Redirect to={{ pathname: "/users/login" }} />
+      )}
     </PageContainer>
   );
 };

@@ -22,35 +22,22 @@ export interface QuizProps {
   courseDetailsFromStore: any;
   loadCourseToStore: Function;
   loading: string[];
-}
-
-interface QuizState {
-  quiz: {
-    challenges: QuestionWithRelevantAnswers[];
-  };
+  token: string;
+  challenges: QuestionWithRelevantAnswers[];
+  loggedIn: boolean;
 }
 
 const Quiz: FC<QuizProps> = ({
   courseDetailsFromStore,
   loadCourseToStore,
   loading,
+  token,
+  challenges,
+  loggedIn,
 }) => {
-  const token = useSelector((state: UserInfo) => state.user.token);
-  const challenges = useSelector((state: QuizState) => state.quiz.challenges);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const checkStore = (): void => {
-      if (token) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    };
-    checkStore();
-
     async function loadCourse() {
       dispatch(showLoadingSign("starter/translation"));
       await pullQuestions(courseDetailsFromStore.courseid, token).then(
@@ -69,7 +56,7 @@ const Quiz: FC<QuizProps> = ({
 
   return (
     <>
-      {isLoggedIn && loading.length === 0 ? (
+      {loggedIn && loading.length === 0 ? (
         <QuizContainer>
           {challenges.map((question, index) => {
             return (

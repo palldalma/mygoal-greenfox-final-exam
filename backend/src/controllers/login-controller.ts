@@ -14,7 +14,6 @@ export const loginController = {
         if ((data as ErrorHandling).status === "error") {
           res.status(400).json(data);
         } else {
-          console.log(data);
           res.status(200).json(data);
         }
       })

@@ -32,13 +32,13 @@ function App() {
           <Route exact path="/users/registration">
             <Registration />
           </Route>
-          <Route exact path="/starter">
+          <Route exact path="/:level">
             <GameSelector />
           </Route>
-          <Route exact path="/starter/translation">
+          <Route exact path="/:level/translation">
             <ListOfCourses />
           </Route>
-          <Route exact path="/starter/translation/:id">
+          <Route exact path="/:level/translation/:id">
             <Quiz />
           </Route>
         </Switch>

@@ -11,8 +11,9 @@ export const translationController = {
     next: NextFunction
   ): Promise<void> {
     const userid: number = parseInt(req.headers.userid as unknown as string);
+    const level: string = req.headers.level as unknown as string;
     await translationService
-      .listCourses({ userid })
+      .listCourses({ userid, level })
       .then((data) => {
         return res.status(200).json(data);
       })

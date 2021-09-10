@@ -26,7 +26,6 @@ const login = async (email: string, password: string): Promise<LoginInfo> => {
 
     const result = await response.json();
 
-    console.log(result);
     if (response.status === 200) {
       return { name: result.name, token: result.token, id: result.id };
     } else {

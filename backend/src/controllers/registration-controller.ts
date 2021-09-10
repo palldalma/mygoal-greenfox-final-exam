@@ -21,7 +21,6 @@ export const registrationController = {
         } else if ((data as ErrorHandling).status === "error") {
           res.status(400).json(data);
         } else {
-          console.log(data);
           res.status(201).json(data);
         }
       })

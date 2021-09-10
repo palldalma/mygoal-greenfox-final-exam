@@ -10,17 +10,11 @@ export const resourceController = {
     await resourcesService
       .getResources({ userid })
       .then((data) => {
-        // if ((data as ErrorHandling).status === "error") {
-        //   res.status(400).json(data);
-        // } else {
-        // console.log(data);
         return res.status(200).json(data);
-        // }
       })
       .catch((error) => {
         next(new HttpException(500, error));
       });
-    // res.json(resource);
   },
 
   async put(req: Request, res: Response, next: NextFunction): Promise<void> {

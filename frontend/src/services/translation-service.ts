@@ -10,7 +10,7 @@ const listCourses = async (
   token: string | undefined,
   level: string | undefined
 ): Promise<Courses> => {
-  if (!userid) {
+  if (!userid || !level) {
     return { error: "Userid is missing." };
   }
 
@@ -20,6 +20,7 @@ const listCourses = async (
       headers: {
         "Content-Type": "application/json",
         userid: userid,
+        level: level,
         authorization: `Bearer ${token}`,
       },
     });

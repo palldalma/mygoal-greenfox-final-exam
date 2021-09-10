@@ -15,7 +15,7 @@ import {
 const listCourses = async (
   request: ListMyTranslationCoursesRequest
 ): Promise<ListMyTranslationCoursesResponse> => {
-  const { userid } = request;
+  const { userid, level } = request;
 
   const data: DbResult = await db
     .query(`SELECT level FROM user u WHERE u.id = ?`, [userid])
@@ -23,17 +23,17 @@ const listCourses = async (
       throw new Error(`database error: ${error.message}`);
     });
 
-  const level = data.results[0] as Level;
+  // const level = data.results[0] as Level;
 
   const courseData: DbResult = await db
     .query(`SELECT * FROM course_translation c WHERE c.level = ?`, [
-      level.level,
+      /* level.level,*/ level,
     ])
     .catch((error) => {
       throw new Error(`database error: ${error.message}`);
     });
 
-  console.log(courseData);
+  // console.log(courseData);
 
   const courses = courseData.results as Course[];
 

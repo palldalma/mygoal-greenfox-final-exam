@@ -25,6 +25,7 @@ export interface QuizProps {
   token: string;
   challenges: QuestionWithRelevantAnswers[];
   loggedIn: boolean;
+  level: string;
 }
 
 const Quiz: FC<QuizProps> = ({
@@ -34,13 +35,14 @@ const Quiz: FC<QuizProps> = ({
   token,
   challenges,
   loggedIn,
+  level,
 }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function loadCourse() {
-      dispatch(showLoadingSign("starter/translation"));
-      await pullQuestions(courseDetailsFromStore.courseid, token).then(
+    async function loadCourse(level: string) {
+      dispatch(showLoadingSign(`${level}/translation`));
+      await pullQuestions(courseDetailsFromStore.courseid, token, level).then(
         (data) => {
           if (data.length !== 0 && data !== undefined) {
             loadCourseToStore(data);
@@ -48,10 +50,10 @@ const Quiz: FC<QuizProps> = ({
         }
       );
 
-      dispatch(hideLoadingSign("starter/translation"));
+      dispatch(hideLoadingSign(`${level}/translation`));
     }
 
-    loadCourse();
+    loadCourse(level);
   }, []);
 
   return (

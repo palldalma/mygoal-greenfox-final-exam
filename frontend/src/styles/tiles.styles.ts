@@ -9,9 +9,9 @@ import { BsBookHalf } from "react-icons/bs";
 const TileContainer = styled.div`
   width: 40vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 
-  @media screen and (max-width: 1342px) {
+  @media screen and (max-width: 768px) {
     margin-top: 20px;
     flex-direction: column;
     align-items: center;
@@ -27,6 +27,7 @@ const Tile = styled(Link)`
   justify-content: center;
   text-decoration: none;
   padding: 0 1rem;
+  margin: 5px;
 
   width: 130px;
   cursor: pointer;

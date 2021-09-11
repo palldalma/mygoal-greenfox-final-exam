@@ -1,13 +1,7 @@
 import { connect } from "react-redux";
-
 import Navbar from "./Navbar";
-
 import { deleteUserInfo } from "../../store/actions/userAction";
 import { setLoggedIn } from "../../store/actions/loginAction";
-
-export interface State {
-  loggedIn: boolean;
-}
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {
@@ -16,10 +10,12 @@ const mapDispatchToProps = (dispatch: Function) => {
   };
 };
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: any) => {
   const { loggedIn } = state;
+  const { backBtn } = state;
   return {
     loggedIn,
+    backBtn,
   };
 };
 

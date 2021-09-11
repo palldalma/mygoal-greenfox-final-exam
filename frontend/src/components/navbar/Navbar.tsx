@@ -1,4 +1,5 @@
 import { FC, useState, SyntheticEvent } from "react";
+import { useHistory } from "react-router";
 import { isDesktop } from "react-device-detect";
 import { Modal } from "react-bootstrap";
 
@@ -12,6 +13,7 @@ import {
   Logo,
   SignInSection,
   Logout,
+  BackBtn,
 } from "../../styles/navbar.styles";
 
 import logo from "../../assets/logo.png";
@@ -24,13 +26,14 @@ export interface NavbarProps {
   deleteUserInfo: Function;
   setLoggedIn: Function;
   loggedIn: boolean;
+  backBtn: boolean;
 }
 
 const activeStyle = {
   backgroundColor: "#5252",
 };
 
-const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn }) => {
+const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn, backBtn }) => {
   const [visibility, setVisibility] = useState(isDesktop);
 
   //modal
@@ -50,6 +53,14 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn }) => {
     deleteUserInfo();
   };
 
+  //backbtn
+  const history = useHistory();
+
+  const handleBack = (event: SyntheticEvent) => {
+    event.preventDefault();
+    history.goBack();
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -63,7 +74,7 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn }) => {
 
       <Nav>
         <Logo>
-          <NavLink to="/home" style={{ border: "none", height: "60px" }}>
+          <NavLink to="/" style={{ border: "none", height: "60px" }}>
             <img src={logo} style={{ height: "40px" }} alt="logo" />
           </NavLink>
         </Logo>
@@ -72,6 +83,12 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn }) => {
 
         {loggedIn ? (
           <>
+            <BackBtn
+              onClick={handleBack}
+              style={
+                !backBtn ? { visibility: "hidden" } : { visibility: "visible" }
+              }
+            ></BackBtn>
             <button id="heartshop" onClick={handleShow}>
               <Resources />
             </button>

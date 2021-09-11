@@ -12,6 +12,7 @@ const mapStateToProps = (state: any) => {
   const token = state.user.token;
   const challenges = state.quiz.challenges;
   const loggedIn = state.loggedIn;
+  const level = state.course.level;
   return {
     courseDetailsFromStore,
     quizFromStore,
@@ -19,6 +20,7 @@ const mapStateToProps = (state: any) => {
     token,
     challenges,
     loggedIn,
+    level,
   };
 };
 

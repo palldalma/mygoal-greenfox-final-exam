@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MdExitToApp } from "react-icons/md";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const Nav = styled.nav`
   font-family: "Helvetica Neue", sans-serif;
@@ -139,6 +140,33 @@ const Logout = styled(MdExitToApp)`
   width: 35px;
 `;
 
+const BackBtn = styled(IoMdArrowRoundBack)`
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 0 1rem;
+  columns: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  color: #525252;
+  width: 70px;
+
+  height: 60px;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #5252;
+  }
+
+  @media screen and (max-width: 768px) {
+    right: 220px;
+    position: absolute;
+    top: 10px;
+  }
+`;
+
 export {
   Nav,
   NavLink,
@@ -149,4 +177,5 @@ export {
   Logo,
   SignInSection,
   Logout,
+  BackBtn,
 };

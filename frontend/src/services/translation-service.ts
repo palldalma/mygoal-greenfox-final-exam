@@ -1,9 +1,5 @@
 import config from "../config";
-import {
-  Courses,
-  QuestionWithRelevantAnswers,
-  QuizLayout,
-} from "../interfaces/courseinfo";
+import { Courses, QuestionWithRelevantAnswers } from "../interfaces/courseinfo";
 
 const listCourses = async (
   userid: string | undefined,
@@ -39,11 +35,12 @@ const listCourses = async (
 
 const pullQuestions = async (
   courseid: number,
-  token: string | undefined
+  token: string | undefined,
+  level: string | undefined
 ): Promise<QuestionWithRelevantAnswers[] | string> => {
   try {
     const response = await fetch(
-      `${config.url}/starter/translation/${courseid}`,
+      `${config.url}/${level}/translation/${courseid}`,
       {
         method: "GET",
         headers: {

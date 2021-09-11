@@ -1,15 +1,22 @@
 import { connect } from "react-redux";
 import Home from "./HomePage";
 
-export interface State {
-  loggedIn: boolean;
-}
+import { setBackBtnVisibility } from "../../store/actions/backBtnAction";
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: any) => {
   const { loggedIn } = state;
+  const { backBtn } = state;
   return {
     loggedIn,
+    backBtn,
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    setBackBtnVisibility: (boolean: boolean) =>
+      dispatch(setBackBtnVisibility(boolean)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

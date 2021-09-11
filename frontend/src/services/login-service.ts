@@ -14,7 +14,6 @@ const login = async (email: string, password: string): Promise<LoginInfo> => {
     return { error: "Email is required." };
   }
 
-  //el akarjuk rejteni a jelszót?
   try {
     const response = await fetch(`${config.url}/users/login`, {
       method: "POST",
@@ -31,7 +30,7 @@ const login = async (email: string, password: string): Promise<LoginInfo> => {
     } else {
       return { error: result.message };
     }
-  } catch (err) {
+  } catch (err: any) {
     return { error: err.message };
   }
 };

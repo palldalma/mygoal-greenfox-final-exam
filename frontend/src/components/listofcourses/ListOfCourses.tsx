@@ -1,6 +1,11 @@
 import { FC, useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import { useDispatch } from "react-redux";
 import { listCourses } from "../../services/translation-service";
+import {
+  hideLoadingSign,
+  showLoadingSign,
+} from "../../store/actions/loadingAction";
 import {
   CourseContainer,
   TranslationTopic,
@@ -22,14 +27,16 @@ const ListOfCourses: FC<ListOfCoursesProps> = ({
   id,
 }) => {
   const [courses, setCourses] = useState([{ id: 0, name: "" }]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     async function getMyCourses() {
+      dispatch(showLoadingSign(`/${level}/tranlation`));
       await listCourses(id, token, level).then((data) => {
         if (data.courses) {
           setCourses(data.courses);
         }
       });
+      dispatch(hideLoadingSign(`/${level}/tranlation`));
     }
 
     getMyCourses();

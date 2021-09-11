@@ -1,4 +1,4 @@
-import { FC, useState, SyntheticEvent } from "react";
+import { FC, useState, SyntheticEvent, useEffect } from "react";
 import { useHistory } from "react-router";
 import { isDesktop } from "react-device-detect";
 import { Modal } from "react-bootstrap";
@@ -86,7 +86,9 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn, backBtn }) => {
             <BackBtn
               onClick={handleBack}
               style={
-                !backBtn ? { visibility: "hidden" } : { visibility: "visible" }
+                !backBtn
+                  ? { pointerEvents: "none", color: "#5252" }
+                  : { color: "#525252" }
               }
             ></BackBtn>
             <button id="heartshop" onClick={handleShow}>

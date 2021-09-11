@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getResources } from "../../services/resource-service";
 import {
   Lives,
@@ -9,9 +9,12 @@ import {
   ResourceContainer,
 } from "../../styles/resources.styles";
 
-import { UserInfo } from "../../interfaces/logininfo";
 import { useEffect } from "react";
 import { GemAndLives } from "../../interfaces/resourceinfo";
+import {
+  hideLoadingSign,
+  showLoadingSign,
+} from "../../store/actions/loadingAction";
 
 interface ResourcesProps {
   updateResourceState: Function;
@@ -26,8 +29,11 @@ const Resources: FC<ResourcesProps> = ({
   token,
   id,
 }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     async function gainResources() {
+      dispatch(showLoadingSign(`navbar`));
       await getResources(id, token).then((data) => {
         if (data.resources) {
           const gem = data.resources.gem;
@@ -38,6 +44,7 @@ const Resources: FC<ResourcesProps> = ({
           updateResourceState(tempResource);
         }
       });
+      dispatch(hideLoadingSign(`navbar`));
     }
     gainResources();
   }, [id, updateResourceState]);

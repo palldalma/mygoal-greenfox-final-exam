@@ -38,6 +38,10 @@ const pullQuestions = async (
   token: string | undefined,
   level: string | undefined
 ): Promise<QuestionWithRelevantAnswers[] | string> => {
+  if (!courseid || !token || !level) {
+    return "Loading questions failed.";
+  }
+
   try {
     const response = await fetch(
       `${config.url}/${level}/translation/${courseid}`,

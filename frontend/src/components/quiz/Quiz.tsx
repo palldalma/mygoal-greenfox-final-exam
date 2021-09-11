@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router";
 import {
   QuestionWithRelevantAnswers,
   QuizLayout,
@@ -31,7 +32,6 @@ export interface QuizProps {
 const Quiz: FC<QuizProps> = ({
   courseDetailsFromStore,
   loadCourseToStore,
-  loading,
   token,
   challenges,
   loggedIn,
@@ -58,7 +58,7 @@ const Quiz: FC<QuizProps> = ({
 
   return (
     <>
-      {loggedIn && loading.length === 0 ? (
+      {loggedIn ? (
         <QuizContainer>
           {challenges.map((question, index) => {
             return (
@@ -79,9 +79,7 @@ const Quiz: FC<QuizProps> = ({
           })}
         </QuizContainer>
       ) : (
-        <QuizContainer>
-          <Loader />
-        </QuizContainer>
+        <Redirect to={{ pathname: "/users/login" }} />
       )}
     </>
   );

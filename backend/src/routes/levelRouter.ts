@@ -7,15 +7,8 @@ const levelRouter = express.Router();
 levelRouter.use(cors());
 levelRouter.use(express.json());
 
-levelRouter.get(
-  "/translation",
-  authenticateToken,
-  translationController.getCourses
-);
-levelRouter.get(
-  "/translation/:id",
-  authenticateToken,
-  translationController.getQuestionList
-);
+levelRouter.use(authenticateToken);
+levelRouter.get("/translation", translationController.getCourses);
+levelRouter.get("/translation/:id", translationController.getQuestionList);
 
 export default levelRouter;

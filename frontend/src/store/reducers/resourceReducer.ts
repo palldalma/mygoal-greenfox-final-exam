@@ -14,5 +14,6 @@ export const resourceReducer = (state = initialState, action: any) => {
   if (action.type === SAVE_RESOURCES) {
     return action.payload;
   }
+
   return state;
 };

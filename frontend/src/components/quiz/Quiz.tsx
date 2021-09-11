@@ -2,10 +2,13 @@ import { FC, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import {
+  Answer,
   QuestionWithRelevantAnswers,
   QuizLayout,
 } from "../../interfaces/courseinfo";
 import { UserInfo } from "../../interfaces/logininfo";
+import { checkAnswer } from "../../services/answer-check-service";
+
 import { pullQuestions } from "../../services/translation-service";
 import {
   hideLoadingSign,
@@ -17,7 +20,6 @@ import {
   QuizContainer,
 } from "../../styles/quiz.styles";
 import "../../styles/quiz.styles.css";
-import Loader from "../loading/";
 
 export interface QuizProps {
   courseDetailsFromStore: any;
@@ -27,6 +29,10 @@ export interface QuizProps {
   challenges: QuestionWithRelevantAnswers[];
   loggedIn: boolean;
   level: string;
+  gem: number;
+  lives: number;
+  userid: string;
+  updateResourceState: Function;
 }
 
 const Quiz: FC<QuizProps> = ({
@@ -36,8 +42,13 @@ const Quiz: FC<QuizProps> = ({
   challenges,
   loggedIn,
   level,
+  gem,
+  lives,
+  userid,
+  updateResourceState,
 }) => {
   const dispatch = useDispatch();
+  const [challengesLoaded, setChallengesLoaded] = useState(false);
 
   useEffect(() => {
     async function loadCourse(level: string) {
@@ -46,6 +57,7 @@ const Quiz: FC<QuizProps> = ({
         (data) => {
           if (data.length !== 0 && data !== undefined) {
             loadCourseToStore(data);
+            setChallengesLoaded(true);
           }
         }
       );
@@ -56,27 +68,43 @@ const Quiz: FC<QuizProps> = ({
     loadCourse(level);
   }, []);
 
+  const handleClick = (answer: Answer) => {
+    const lostLives = checkAnswer(answer, token, userid, gem, lives).then(
+      (newResources) => {
+        if (newResources?.gem && newResources.lives) {
+          updateResourceState(newResources);
+        }
+      }
+    );
+  };
+
   return (
     <>
       {loggedIn ? (
         <QuizContainer>
-          {challenges.map((question, index) => {
-            return (
-              <div key={index}>
-                <QuestionBox>{question.question}</QuestionBox>
+          {challengesLoaded &&
+            challenges.map((question, index) => {
+              return (
+                <div key={index}>
+                  <QuestionBox>{question.question}</QuestionBox>
 
-                <div id="quizanswers">
-                  {question.answers.map((answer, index) => {
-                    return (
-                      <AnswerBox key={index}>
-                        {question.answers[index].answer}
-                      </AnswerBox>
-                    );
-                  })}
+                  <div id="quizanswers">
+                    {question.answers.map((answer, index) => {
+                      return (
+                        <AnswerBox
+                          key={index}
+                          onClick={() => {
+                            handleClick(answer);
+                          }}
+                        >
+                          {question.answers[index].answer}
+                        </AnswerBox>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </QuizContainer>
       ) : (
         <Redirect to={{ pathname: "/users/login" }} />

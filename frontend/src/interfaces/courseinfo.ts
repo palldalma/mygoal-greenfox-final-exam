@@ -22,11 +22,3 @@ export interface QuizLayout {
   questionCollection?: QuestionWithRelevantAnswers[];
   error?: string;
 }
-
-// export interface SelectedLevel {
-//   level: string;
-// }
-
-// export interface SelectedCourse {
-//   courseid: number;
-// }

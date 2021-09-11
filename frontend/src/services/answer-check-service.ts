@@ -1,6 +1,5 @@
 import { Answer } from "../interfaces/courseinfo";
 import { updateResources } from "./resource-service";
-import { updateResourceState } from "../store/actions/resourceAction";
 
 const checkAnswer = async (
   answer: Answer,
@@ -9,7 +8,8 @@ const checkAnswer = async (
   gem: number | undefined,
   lives: number | undefined
 ) => {
-  if (!userid || !lives || !token || !gem) {
+  if (!userid || !lives || !token) {
+    console.log(gem);
     return;
   }
 

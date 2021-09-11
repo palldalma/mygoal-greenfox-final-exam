@@ -71,7 +71,10 @@ const Quiz: FC<QuizProps> = ({
   const handleClick = (answer: Answer) => {
     const lostLives = checkAnswer(answer, token, userid, gem, lives).then(
       (newResources) => {
-        if (newResources?.gem && newResources.lives) {
+        if (
+          newResources?.gem !== undefined &&
+          newResources.lives !== undefined
+        ) {
           updateResourceState(newResources);
         }
       }

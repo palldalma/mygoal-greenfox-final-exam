@@ -1,12 +1,11 @@
 import { FC, useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import {
   Answer,
   QuestionWithRelevantAnswers,
-  QuizLayout,
 } from "../../interfaces/courseinfo";
-import { UserInfo } from "../../interfaces/logininfo";
+
 import { checkAnswer } from "../../services/answer-check-service";
 
 import { pullQuestions } from "../../services/translation-service";

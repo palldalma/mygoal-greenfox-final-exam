@@ -15,6 +15,8 @@ import Quiz from "./components/quiz/";
 
 import Loader from "./components/loading/";
 import ListOfCourses from "./components/listofcourses";
+import CustomSelector from "./components/customselector";
+import CreateQuiz from "./components/createquiz/CreateQuiz";
 
 function App() {
   return (
@@ -31,6 +33,12 @@ function App() {
           </Route>
           <Route exact path="/users/registration">
             <Registration />
+          </Route>
+          <Route exact path="/create">
+            <CustomSelector />
+          </Route>
+          <Route exact path="/create/translation">
+            <CreateQuiz />
           </Route>
           <Route exact path="/:level">
             <GameSelector />

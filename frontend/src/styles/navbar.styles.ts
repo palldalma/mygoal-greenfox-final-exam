@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { MdExitToApp } from "react-icons/md";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { BsPlusSquare } from "react-icons/bs";
 
 const Nav = styled.nav`
   font-family: "Helvetica Neue", sans-serif;
@@ -23,7 +24,6 @@ const NavLink = styled(Link)`
   justify-content: center;
   text-decoration: none;
   padding: 0 1rem;
-
   width: 100px;
   cursor: pointer;
   border-radius: 4px;
@@ -38,9 +38,6 @@ const NavLink = styled(Link)`
   @media screen and (max-width: 768px) {
     width: 30vw;
     justify-content: flex-end;
-    /* padding-right: 5vw;
-    margin-bottom: 5px;
-    margin-right: 5px; */
   }
 `;
 
@@ -62,6 +59,10 @@ const Bars = styled(FaBars)`
 const NavMenu = styled.div`
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const NavBtn = styled.nav`
@@ -140,7 +141,7 @@ const Logout = styled(MdExitToApp)`
   width: 35px;
 `;
 
-const BackBtn = styled(IoMdArrowRoundBack)`
+const BackBtn = styled(IoIosArrowRoundBack)`
   border-radius: 4px;
   font-weight: bold;
   padding: 0 1rem;
@@ -151,8 +152,7 @@ const BackBtn = styled(IoMdArrowRoundBack)`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   color: #525252;
-  width: 70px;
-
+  width: 100px;
   height: 60px;
 
   &:hover {
@@ -161,10 +161,15 @@ const BackBtn = styled(IoMdArrowRoundBack)`
   }
 
   @media screen and (max-width: 768px) {
-    right: 220px;
+    right: 200px;
     position: absolute;
     top: 10px;
   }
+`;
+
+const Add = styled(BsPlusSquare)`
+  height: 35px;
+  width: 35px;
 `;
 
 export {
@@ -178,4 +183,5 @@ export {
   SignInSection,
   Logout,
   BackBtn,
+  Add,
 };

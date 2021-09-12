@@ -32,9 +32,9 @@ const Resources: FC<ResourcesProps> = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function gainResources() {
+    /*async*/ function gainResources() {
       dispatch(showLoadingSign(`navbar`));
-      await getResources(id, token).then((data) => {
+      /*await*/ getResources(id, token).then((data) => {
         if (data.resources) {
           const gem = data.resources.gem;
           const lives = data.resources.lives;

@@ -57,4 +57,51 @@ const AnswerBox = styled.button`
   }
 `;
 
-export { QuizContainer, QuestionBox, AnswerBox };
+const SelectorContainer = styled.div`
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  text-decoration: none;
+  padding: 0;
+
+  border-radius: 4px;
+  width: 60vw;
+
+  height: 50px;
+  margin-bottom: 3px;
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
+`;
+
+const AnswerContainer = styled.div`
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  grid-row-gap: 3px;
+
+  text-decoration: none;
+  padding: 0;
+
+  border-radius: 4px;
+  width: 60vw;
+
+  height: 212px;
+  margin-bottom: 3px;
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
+`;
+
+const QuizForm = styled.form``;
+
+export {
+  QuizContainer,
+  QuestionBox,
+  AnswerBox,
+  SelectorContainer,
+  AnswerContainer,
+};

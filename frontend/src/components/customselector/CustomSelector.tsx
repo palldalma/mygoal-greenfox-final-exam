@@ -7,18 +7,18 @@ import {
   TranslationIcon,
 } from "../../styles/tiles.styles";
 
-export interface gameSelectorProps {
+export interface CustomSelectorProps {
   loggedIn: boolean;
   level: string;
   setBackBtnVisibility: Function;
   backBtn: boolean;
 }
 
-const GameSelector: FC<gameSelectorProps> = ({
+const CustomSelector: FC<CustomSelectorProps> = ({
   loggedIn,
   level,
-  backBtn,
   setBackBtnVisibility,
+  backBtn,
 }) => {
   useEffect(() => {
     async function checkBackBtn() {
@@ -39,13 +39,13 @@ const GameSelector: FC<gameSelectorProps> = ({
         <>
           <TileContainer>
             <Tile
-              to={`/${level}/translation`}
-              style={{ backgroundColor: "	#00FFFF" }}
+              to={`/create/translation`}
+              style={{ backgroundColor: "	#1d3030" }}
             >
               <TranslationIcon />
             </Tile>
             <Tile
-              to={`/${level}/dummy1`}
+              to={`/create/flashcards`}
               style={{ backgroundColor: "	#c6dddd" }}
             >
               Flashcards
@@ -59,4 +59,4 @@ const GameSelector: FC<gameSelectorProps> = ({
   );
 };
 
-export default GameSelector;
+export default CustomSelector;

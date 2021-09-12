@@ -14,6 +14,7 @@ import {
   SignInSection,
   Logout,
   BackBtn,
+  Add,
 } from "../../styles/navbar.styles";
 
 import logo from "../../assets/logo.png";
@@ -99,6 +100,15 @@ const Navbar: FC<NavbarProps> = ({ deleteUserInfo, loggedIn, backBtn }) => {
               style={visibility ? { display: "flex" } : { display: "none" }}
             >
               <NavMenu>
+                <NavLink
+                  to="/create"
+                  activeStyle={activeStyle}
+                  onClick={() => {}}
+                  id="dropdownitem"
+                >
+                  <Add />
+                </NavLink>
+
                 <NavLink
                   to="/users/logout"
                   activeStyle={activeStyle}

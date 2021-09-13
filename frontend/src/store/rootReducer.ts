@@ -7,6 +7,7 @@ import { quizReducer } from "./reducers/quizReducer";
 import { loadingReducer } from "./reducers/loadingReducer";
 import { loginReducer } from "./reducers/loginReducer";
 import { backBtnReducer } from "./reducers/backBtnReducer";
+import { customQuestionReducer } from "./reducers/customQuestionReducer";
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   loading: loadingReducer,
   loggedIn: loginReducer,
   backBtn: backBtnReducer,
+  customQuestion: customQuestionReducer,
 });
 
 const rootReducer = (state: RootStateOrAny | undefined, action: AnyAction) => {

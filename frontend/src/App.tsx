@@ -16,7 +16,7 @@ import Quiz from "./components/quiz/";
 import Loader from "./components/loading/";
 import ListOfCourses from "./components/listofcourses";
 import CustomSelector from "./components/customselector";
-import CreateQuiz from "./components/createquiz/CreateQuiz";
+import CreateQuiz from "./components/createquiz/";
 
 function App() {
   return (

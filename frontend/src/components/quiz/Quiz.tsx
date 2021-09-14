@@ -1,4 +1,5 @@
 import { FC, useState, useEffect } from "react";
+
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import {
@@ -48,6 +49,9 @@ const Quiz: FC<QuizProps> = ({
 }) => {
   const dispatch = useDispatch();
   const [challengesLoaded, setChallengesLoaded] = useState(false);
+  const [clickedStyle, setClickedStyle] = useState([{}]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [usedQuestions, setUsedQuestions] = useState([-1]);
 
   useEffect(() => {
     async function loadCourse(level: string) {
@@ -81,6 +85,40 @@ const Quiz: FC<QuizProps> = ({
     });
   };
 
+  const styleResponse = (
+    index: number,
+    answer: Answer,
+    answerindex: number
+  ) => {
+    if (answer.iscorrect === 1) {
+      let newClickedStyle = [];
+      newClickedStyle = [
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+      ];
+      newClickedStyle[answerindex] = { backgroundColor: "green" };
+      setClickedStyle(newClickedStyle);
+      setCurrentIndex(index);
+    } else {
+      let newClickedStyle = [];
+      newClickedStyle = [
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+        { backgroundColor: "#f0f5f5" },
+      ];
+      newClickedStyle[answerindex] = { backgroundColor: "red" };
+      setClickedStyle(newClickedStyle);
+      setCurrentIndex(index);
+    }
+
+    let tempUsedQuestions = [...usedQuestions];
+    tempUsedQuestions[index] = index;
+    setUsedQuestions(tempUsedQuestions);
+  };
+
   return (
     <>
       {loggedIn ? (
@@ -92,15 +130,29 @@ const Quiz: FC<QuizProps> = ({
                   <QuestionBox>{question.question}</QuestionBox>
 
                   <div id="quizanswers">
-                    {question.answers.map((answer, index) => {
+                    {question.answers.map((answer, answerindex) => {
                       return (
                         <AnswerBox
-                          key={index}
-                          onClick={() => {
+                          key={answer.answer}
+                          style={
+                            currentIndex === index
+                              ? clickedStyle[answerindex]
+                              : usedQuestions.includes(index)
+                              ? {
+                                  backgroundColor: "#f0f5f5",
+                                  color: "#c2d6d6",
+                                }
+                              : {}
+                          }
+                          disabled={
+                            !usedQuestions.includes(index) ? false : true
+                          }
+                          onClick={(e) => {
                             handleClick(answer);
+                            styleResponse(index, answer, answerindex);
                           }}
                         >
-                          {question.answers[index].answer}
+                          {question.answers[answerindex].answer}
                         </AnswerBox>
                       );
                     })}

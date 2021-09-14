@@ -53,7 +53,7 @@ const register = async (
     } else {
       return result.message;
     }
-  } catch (err) {
+  } catch (err: any) {
     return err.message;
   }
 };

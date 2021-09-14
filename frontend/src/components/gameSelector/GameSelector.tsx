@@ -31,7 +31,7 @@ const GameSelector: FC<gameSelectorProps> = ({
     }
 
     checkBackBtn();
-  }, []);
+  }, [backBtn, setBackBtnVisibility]);
 
   return (
     <PageContainer>

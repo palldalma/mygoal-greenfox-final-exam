@@ -21,17 +21,19 @@ interface CreateQuizProps {
   token: string;
   id: string;
   updateLevelOfCustomQuestion: Function;
-  customQuestion: string;
+  updateCourseOfCustomQuestion: Function;
+  customLevel: string;
+  customCourse: string;
 }
 
 const CreateQuiz: FC<CreateQuizProps> = ({
   token,
   id,
   updateLevelOfCustomQuestion,
-  customQuestion,
+  updateCourseOfCustomQuestion,
+  customLevel,
+  customCourse,
 }) => {
-  // const [chosenLevel, setChosenLevel] = useState("starter");
-  const [course, setCourse] = useState("");
   const [question, setQuestion] = useState("");
   const [answer1, setAnswer1] = useState("");
   const [answer2, setAnswer2] = useState("");
@@ -82,29 +84,29 @@ const CreateQuiz: FC<CreateQuizProps> = ({
   };
 
   useEffect(() => {
-    /*async */ function getMyCourses() {
-      dispatch(showLoadingSign(`/${customQuestion}/tranlation`));
-      const level = customQuestion;
-      /*await*/ listCourses(id, token, level).then((data) => {
+    //this fills up the course selector element
+    function getMyCourses() {
+      dispatch(showLoadingSign(`/${customLevel}/tranlation`));
+      const level = customLevel;
+      listCourses(id, token, level).then((data) => {
         if (data.courses) {
           setCourses(data.courses);
         }
+
+        if (customCourse === "" && data.courses !== undefined) {
+          updateCourseOfCustomQuestion(data.courses[0].name);
+        }
       });
-      dispatch(hideLoadingSign(`/${customQuestion}/tranlation`));
+      dispatch(hideLoadingSign(`/${customLevel}/tranlation`));
     }
 
-    if (customQuestion) {
+    if (customLevel) {
       getMyCourses();
     }
-  }, [
-    /*level*/
-    // updateLevelOfCustomQuestion,
-    // levelOfCustomQuestion,
-    customQuestion,
-  ]);
+  }, [customLevel, dispatch, id, token]);
 
   const handleSubmit = (newQuestion: string, answers: Answer[]) => {
-    submitNewQuestion(customQuestion, course, newQuestion, answers, token);
+    submitNewQuestion(customLevel, customCourse, newQuestion, answers, token);
   };
 
   return (
@@ -113,7 +115,7 @@ const CreateQuiz: FC<CreateQuizProps> = ({
         <select
           className="quizselector"
           name="levelselect"
-          value={customQuestion}
+          value={customLevel}
           onChange={(e) => {
             updateLevelOfCustomQuestion(e.target.value);
           }}
@@ -129,26 +131,25 @@ const CreateQuiz: FC<CreateQuizProps> = ({
         {/* ide dinamikusan kell betölteni a témákat */}
         <select
           disabled={
-            customQuestion === "starter" ||
-            customQuestion === "beginner" ||
-            customQuestion === "intermediate" ||
-            customQuestion === "advanced"
+            customLevel === "starter" ||
+            customLevel === "beginner" ||
+            customLevel === "intermediate" ||
+            customLevel === "advanced"
               ? false
               : true
           }
           className="quizselector"
           name="courseselect"
-          value={course}
+          value={customCourse}
           onChange={(e) => {
-            setCourse(e.target.value);
+            updateCourseOfCustomQuestion(e.target.value);
           }}
         >
           {
             /*isCourseFieldDisabled &&*/
-            courses.map((course) => {
-              return <option>{course.name}</option>;
+            courses.map((course, index) => {
+              return <option key={index}>{course.name}</option>;
             })
-            // <option>Select Course, select level first</option>
           }
         </select>
       </SelectorContainer>

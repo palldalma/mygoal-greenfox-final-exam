@@ -25,7 +25,7 @@ export const Home: FC<HomeProps> = ({
     }
 
     checkBackBtn();
-  }, []);
+  }, [backBtn, setBackBtnVisibility]);
 
   return (
     <PageContainer>

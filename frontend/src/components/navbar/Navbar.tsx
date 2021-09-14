@@ -1,4 +1,4 @@
-import { FC, useState, SyntheticEvent, useEffect } from "react";
+import { FC, useState, SyntheticEvent } from "react";
 import { useHistory } from "react-router";
 import { isDesktop } from "react-device-detect";
 import { Modal } from "react-bootstrap";

@@ -40,7 +40,7 @@ const ListOfCourses: FC<ListOfCoursesProps> = ({
     }
 
     getMyCourses();
-  }, []);
+  }, [id, token, level, dispatch]);
 
   const onClickHandler = (courseid: number) => {
     updateCourseid({ courseid: courseid });

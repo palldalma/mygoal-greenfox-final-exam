@@ -65,19 +65,20 @@ const Quiz: FC<QuizProps> = ({
     }
 
     loadCourse(level);
-  }, []);
+  }, [
+    courseDetailsFromStore.courseid,
+    dispatch,
+    level,
+    loadCourseToStore,
+    token,
+  ]);
 
   const handleClick = (answer: Answer) => {
-    const lostLives = checkAnswer(answer, token, userid, gem, lives).then(
-      (newResources) => {
-        if (
-          newResources?.gem !== undefined &&
-          newResources.lives !== undefined
-        ) {
-          updateResourceState(newResources);
-        }
+    checkAnswer(answer, token, userid, gem, lives).then((newResources) => {
+      if (newResources?.gem !== undefined && newResources.lives !== undefined) {
+        updateResourceState(newResources);
       }
-    );
+    });
   };
 
   return (

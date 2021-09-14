@@ -45,40 +45,41 @@ export const submitNewQuestion = async (
     !newQuestion ||
     !answers.every(isAnswerOk) ||
     !token ||
-    !checkGoodAnswer(answers) ||
-    !checkWrongAnswers ||
+    // !checkGoodAnswer(answers) ||
+    // !checkWrongAnswers ||
     !level ||
     !course
   ) {
     console.log("validation error");
+    console.log(newQuestion, answers, token, level, course);
     return { error: "the new quiz question was submitted with missing values" };
   }
 
   console.log("SUCCESS" + level, course, newQuestion, answers);
 
-  // try {
-  //   const response = await fetch(`${config.url}/create/translation`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       level: level,
-  //       course: course,
-  //       authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify({
-  //       question: newQuestion,
-  //       answers: answers,
-  //     }),
-  //   });
+  try {
+    const response = await fetch(`${config.url}/create/translation`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        level: level,
+        course: course,
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        question: newQuestion,
+        answers: answers,
+      }),
+    });
 
-  //   const result = await response.json();
+    const result = await response.json();
 
-  //   if (response.status === 200) {
-  //     return result;
-  //   } else {
-  //     return { error: "quiz question could not be added to the database" };
-  //   }
-  // } catch (err: any) {
-  //   return { error: err.message };
-  // }
+    if (response.status === 200) {
+      return result;
+    } else {
+      return { error: "quiz question could not be added to the database" };
+    }
+  } catch (err: any) {
+    return { error: err.message };
+  }
 };

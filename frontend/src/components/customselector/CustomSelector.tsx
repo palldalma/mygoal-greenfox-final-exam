@@ -31,7 +31,7 @@ const CustomSelector: FC<CustomSelectorProps> = ({
     }
 
     checkBackBtn();
-  }, []);
+  }, [backBtn, setBackBtnVisibility]);
 
   return (
     <PageContainer>

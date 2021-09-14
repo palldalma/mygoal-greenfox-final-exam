@@ -47,7 +47,7 @@ const Resources: FC<ResourcesProps> = ({
       dispatch(hideLoadingSign(`navbar`));
     }
     gainResources();
-  }, [id, updateResourceState]);
+  }, [id, updateResourceState, dispatch, token]);
 
   return (
     <div>

@@ -96,8 +96,6 @@ const AnswerContainer = styled.div`
   }
 `;
 
-const QuizForm = styled.form``;
-
 export {
   QuizContainer,
   QuestionBox,

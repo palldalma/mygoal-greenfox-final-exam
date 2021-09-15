@@ -10,12 +10,14 @@ const mapStateToProps = (state: any) => {
   const { id, token } = state.user;
   const customCourse = state.customCourse;
   const customLevel = state.customLevel;
+  const loggedIn = state.loggedIn;
 
   return {
     token,
     id,
     customCourse,
     customLevel,
+    loggedIn,
   };
 };
 

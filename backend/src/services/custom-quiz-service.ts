@@ -22,21 +22,13 @@ const addNewQuestionToDb = async (
 ) => {
   const data: DbResult = await db
 
-    //kelleni fog a courseid SELECT-tel
     .query(`SELECT id FROM course_translation WHERE name=?;`, [course])
-
-    // .query(`UPDATE resource SET gem=(?), lives=(?) WHERE userid=(?);`, [
-    //   gem,
-    //   lives,
-    //   userid,
-    // ])
 
     .catch((error) => {
       throw new Error(`database error: ${error.message}`);
     });
 
   const courseid = data.results[0] as CourseID;
-  console.log(courseid.id);
 
   const addNewQuestionToDb: DbResult = await db.query(
     `INSERT INTO question_translation (courseid,question) VALUES (?,?);`,

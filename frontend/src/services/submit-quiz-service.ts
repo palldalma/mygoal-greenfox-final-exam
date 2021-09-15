@@ -16,9 +16,7 @@ export const submitNewQuestion = async (
       answer.answer !== undefined
     ) {
       return true;
-    } else {
-      console.log("isAnswerOk");
-    }
+    } else return false;
   };
 
   const checkGoodAnswer = (answers: Answer[]) => {
@@ -26,7 +24,7 @@ export const submitNewQuestion = async (
     if (answers.some((answer: Answer) => answer.iscorrect === 1)) {
       return true;
     } else {
-      console.log("checkGoodAnswer", answers);
+      return false;
     }
   };
 
@@ -35,23 +33,22 @@ export const submitNewQuestion = async (
     const result = answers.filter((answer) => answer.iscorrect === 0);
     if (result.length === 3) {
       return true;
-    } else {
-      console.log("checkWrongAnswers");
-    }
+    } else return false;
   };
+
+  const goodAnswer = checkGoodAnswer(answers);
+  const wrongAnswers = checkWrongAnswers(answers);
 
   // validation
   if (
     !newQuestion ||
     !answers.every(isAnswerOk) ||
     !token ||
-    // !checkGoodAnswer(answers) ||
-    // !checkWrongAnswers ||
+    !goodAnswer ||
+    !wrongAnswers ||
     !level ||
     !course
   ) {
-    console.log("validation error");
-    console.log(newQuestion, answers, token, level, course);
     return { error: "the new quiz question was submitted with missing values" };
   }
 

@@ -8,17 +8,30 @@ const checkAnswer = async (
   gem: number | undefined,
   lives: number | undefined
 ) => {
-  if (!userid || !lives || !token) {
-    console.log(gem);
-    return;
+  if (!userid || !lives || !token || !gem) {
+    return { error: "Resources could not be updated." };
   }
 
-  let updatedLives = lives - 1;
+  let updatedLives: number;
+  let updatedGem: number;
 
-  if (answer.iscorrect === 0) {
-    updateResources({ userid: userid, lives: updatedLives, gem: gem }, token);
-    return { gem: gem, lives: updatedLives };
+  if (answer.iscorrect === (0 as number)) {
+    updatedLives = lives - 1;
+    updatedGem = gem + 10;
+    updateResources(
+      { userid: userid, lives: updatedLives, gem: updatedGem },
+      token
+    );
+    return { gem: updatedGem, lives: updatedLives };
+  }
+  if (answer.iscorrect === 1) {
+    updatedLives = lives;
+    updatedGem = gem + 10;
+    updateResources(
+      { userid: userid, lives: updatedLives, gem: updatedGem },
+      token
+    );
+    return { gem: updatedGem, lives: updatedLives };
   }
 };
-
 export { checkAnswer };

@@ -4,8 +4,14 @@ const QuizContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
   box-sizing: border-box;
+  height: 85vh;
+  overflow: auto;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 const QuestionBox = styled.div`

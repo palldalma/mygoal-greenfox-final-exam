@@ -68,7 +68,9 @@ const Quiz: FC<QuizProps> = ({
       dispatch(hideLoadingSign(`${level}/translation`));
     }
 
-    loadCourse(level);
+    if (level) {
+      loadCourse(level);
+    }
   }, [
     courseDetailsFromStore.courseid,
     dispatch,

@@ -16,6 +16,7 @@ import {
   hideLoadingSign,
   showLoadingSign,
 } from "../../store/actions/loadingAction";
+import { Redirect } from "react-router";
 
 interface CreateQuizProps {
   token: string;
@@ -24,6 +25,7 @@ interface CreateQuizProps {
   updateCourseOfCustomQuestion: Function;
   customLevel: string;
   customCourse: string;
+  loggedIn: boolean;
 }
 
 const CreateQuiz: FC<CreateQuizProps> = ({
@@ -33,6 +35,7 @@ const CreateQuiz: FC<CreateQuizProps> = ({
   updateCourseOfCustomQuestion,
   customLevel,
   customCourse,
+  loggedIn,
 }) => {
   const [question, setQuestion] = useState("");
   const [answer1, setAnswer1] = useState("");
@@ -43,7 +46,6 @@ const CreateQuiz: FC<CreateQuizProps> = ({
   const [iscorrect2, setIsCorrect2] = useState(0);
   const [iscorrect3, setIsCorrect3] = useState(0);
   const [iscorrect4, setIsCorrect4] = useState(0);
-  // const [isCourseFieldDisabled, setCourseFieldDisabled] = useState(true);
   const [courses, setCourses] = useState([{ id: 0, name: "" }]);
   const dispatch = useDispatch();
 
@@ -103,132 +105,147 @@ const CreateQuiz: FC<CreateQuizProps> = ({
     if (customLevel) {
       getMyCourses();
     }
-  }, [customLevel, dispatch, id, token]);
+  }, [
+    customLevel,
+    dispatch,
+    id,
+    token,
+    customCourse,
+    updateCourseOfCustomQuestion,
+  ]);
 
   const handleSubmit = (newQuestion: string, answers: Answer[]) => {
     submitNewQuestion(customLevel, customCourse, newQuestion, answers, token);
   };
 
   return (
-    <QuizContainer>
-      <SelectorContainer>
-        <select
-          className="quizselector"
-          name="levelselect"
-          value={customLevel}
-          onChange={(e) => {
-            updateLevelOfCustomQuestion(e.target.value);
-          }}
-        >
-          <option>Select Level</option>
-          <option value="starter">Starter</option>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
-      </SelectorContainer>
-      <SelectorContainer>
-        {/* ide dinamikusan kell betölteni a témákat */}
-        <select
-          disabled={
-            customLevel === "starter" ||
-            customLevel === "beginner" ||
-            customLevel === "intermediate" ||
-            customLevel === "advanced"
-              ? false
-              : true
-          }
-          className="quizselector"
-          name="courseselect"
-          value={customCourse}
-          onChange={(e) => {
-            updateCourseOfCustomQuestion(e.target.value);
-          }}
-        >
-          {
-            /*isCourseFieldDisabled &&*/
-            courses.map((course, index) => {
-              return <option key={index}>{course.name}</option>;
-            })
-          }
-        </select>
-      </SelectorContainer>
+    <>
+      {loggedIn ? (
+        <QuizContainer>
+          <SelectorContainer>
+            <select
+              className="quizselector"
+              name="levelselect"
+              value={customLevel}
+              onChange={(e) => {
+                updateLevelOfCustomQuestion(e.target.value);
+              }}
+            >
+              <option>Select Level</option>
+              <option value="starter">Starter</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </SelectorContainer>
+          <SelectorContainer>
+            {/* ide dinamikusan kell betölteni a témákat */}
+            <select
+              disabled={
+                customLevel === "starter" ||
+                customLevel === "beginner" ||
+                customLevel === "intermediate" ||
+                customLevel === "advanced"
+                  ? false
+                  : true
+              }
+              className="quizselector"
+              name="courseselect"
+              value={customCourse}
+              onChange={(e) => {
+                updateCourseOfCustomQuestion(e.target.value);
+              }}
+            >
+              {
+                /*isCourseFieldDisabled &&*/
+                courses.map((course, index) => {
+                  return <option key={index}>{course.name}</option>;
+                })
+              }
+            </select>
+          </SelectorContainer>
 
-      <SelectorContainer>
-        <input
-          className="quizselector"
-          type="text"
-          placeholder="Write your question here."
-          value={question}
-          onChange={(e) => {
-            setQuestion(e.target.value);
-          }}
-        />
-      </SelectorContainer>
+          <SelectorContainer>
+            <input
+              className="quizselector"
+              type="text"
+              placeholder="Write your question here."
+              value={question}
+              onChange={(e) => {
+                setQuestion(e.target.value);
+              }}
+            />
+          </SelectorContainer>
 
-      <AnswerContainer>
-        <input
-          className="quizselector"
-          type="text"
-          value={answer1}
-          onChange={(e) => {
-            setAnswer1(e.target.value);
-          }}
-        />
-        <input
-          type="radio"
-          name="iscorrect"
-          style={{ alignSelf: "center", justifySelf: "center" }}
-          onChange={(e) => handleSelect(e, 0)}
-        />
+          <AnswerContainer>
+            <input
+              className="quizselector"
+              type="text"
+              value={answer1}
+              onChange={(e) => {
+                setAnswer1(e.target.value);
+              }}
+            />
+            <input
+              type="radio"
+              name="iscorrect"
+              style={{ alignSelf: "center", justifySelf: "center" }}
+              onChange={(e) => handleSelect(e, 0)}
+            />
 
-        <input
-          type="text"
-          className="quizselector"
-          value={answer2}
-          onChange={(e) => {
-            setAnswer2(e.target.value);
-          }}
-        />
-        <input
-          type="radio"
-          name="iscorrect"
-          style={{ alignSelf: "center", justifySelf: "center" }}
-          onChange={(e) => handleSelect(e, 1)}
-        />
+            <input
+              type="text"
+              className="quizselector"
+              value={answer2}
+              onChange={(e) => {
+                setAnswer2(e.target.value);
+              }}
+            />
+            <input
+              type="radio"
+              name="iscorrect"
+              style={{ alignSelf: "center", justifySelf: "center" }}
+              onChange={(e) => handleSelect(e, 1)}
+            />
 
-        <input
-          type="text"
-          className="quizselector"
-          value={answer3}
-          onChange={(e) => {
-            setAnswer3(e.target.value);
-          }}
-        />
-        <input
-          type="radio"
-          name="iscorrect"
-          style={{ alignSelf: "center", justifySelf: "center" }}
-          onChange={(e) => handleSelect(e, 2)}
-        />
+            <input
+              type="text"
+              className="quizselector"
+              value={answer3}
+              onChange={(e) => {
+                setAnswer3(e.target.value);
+              }}
+            />
+            <input
+              type="radio"
+              name="iscorrect"
+              style={{ alignSelf: "center", justifySelf: "center" }}
+              onChange={(e) => handleSelect(e, 2)}
+            />
 
-        <input
-          type="text"
-          className="quizselector"
-          value={answer4}
-          onChange={(e) => {
-            setAnswer4(e.target.value);
-          }}
-        />
-        <input
-          type="radio"
-          name="iscorrect"
-          style={{ alignSelf: "center", justifySelf: "center" }}
-          onChange={(e) => handleSelect(e, 3)}
-        />
-      </AnswerContainer>
-      <Button onClick={() => handleSubmit(question, answers)}>SUBMIT</Button>
-    </QuizContainer>
+            <input
+              type="text"
+              className="quizselector"
+              value={answer4}
+              onChange={(e) => {
+                setAnswer4(e.target.value);
+              }}
+            />
+            <input
+              type="radio"
+              name="iscorrect"
+              style={{ alignSelf: "center", justifySelf: "center" }}
+              onChange={(e) => handleSelect(e, 3)}
+            />
+          </AnswerContainer>
+          <Button onClick={() => handleSubmit(question, answers)}>
+            SUBMIT
+          </Button>
+        </QuizContainer>
+      ) : (
+        <Redirect to={{ pathname: "/users/login" }} />
+      )}
+    </>
   );
 };
 

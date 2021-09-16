@@ -17,6 +17,7 @@ import {
   showLoadingSign,
 } from "../../store/actions/loadingAction";
 import { Redirect } from "react-router";
+import swal from "sweetalert";
 
 interface CreateQuizProps {
   token: string;
@@ -47,6 +48,13 @@ const CreateQuiz: FC<CreateQuizProps> = ({
   const [iscorrect3, setIsCorrect3] = useState(0);
   const [iscorrect4, setIsCorrect4] = useState(0);
   const [courses, setCourses] = useState([{ id: 0, name: "" }]);
+  const [levels, setLevels] = useState([
+    "Select Level",
+    "starter",
+    "beginner",
+    "intermediate",
+    "advanced",
+  ]);
   const dispatch = useDispatch();
 
   let answers = [
@@ -55,6 +63,21 @@ const CreateQuiz: FC<CreateQuizProps> = ({
     { answer: answer3, iscorrect: iscorrect3 },
     { answer: answer4, iscorrect: iscorrect4 },
   ];
+
+  const clearForm = () => {
+    setQuestion("");
+    setAnswer1("");
+    setAnswer2("");
+    setAnswer3("");
+    setAnswer4("");
+    setIsCorrect1(0);
+    setIsCorrect2(0);
+    setIsCorrect3(0);
+    setIsCorrect4(0);
+    updateCourseOfCustomQuestion("");
+    updateLevelOfCustomQuestion("");
+    setCourses([{ id: 0, name: "" }]);
+  };
 
   const handleSelect = (event: any, position: number) => {
     if (event.target.value === "on") {
@@ -115,7 +138,31 @@ const CreateQuiz: FC<CreateQuizProps> = ({
   ]);
 
   const handleSubmit = (newQuestion: string, answers: Answer[]) => {
-    submitNewQuestion(customLevel, customCourse, newQuestion, answers, token);
+    const submission = submitNewQuestion(
+      customLevel,
+      customCourse,
+      newQuestion,
+      answers,
+      token
+    ).then((result) => {
+      if (result) {
+        if (result.error) {
+          swal({
+            title: "Oh-oh!",
+            text: "Submission failed.",
+            icon: "error",
+          });
+        }
+        if (result.success) {
+          swal({
+            title: "Good job!",
+            text: "Your question has been submitted.",
+            icon: "success",
+          });
+          clearForm();
+        }
+      }
+    });
   };
 
   return (
@@ -129,13 +176,12 @@ const CreateQuiz: FC<CreateQuizProps> = ({
               value={customLevel}
               onChange={(e) => {
                 updateLevelOfCustomQuestion(e.target.value);
+                updateCourseOfCustomQuestion("");
               }}
             >
-              <option>Select Level</option>
-              <option value="starter">Starter</option>
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
+              {levels.map((level, index) => {
+                return <option key={index}>{level}</option>;
+              })}
             </select>
           </SelectorContainer>
           <SelectorContainer>

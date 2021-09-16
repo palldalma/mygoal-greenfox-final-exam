@@ -6,8 +6,10 @@ import {
   Answer,
   QuestionWithRelevantAnswers,
 } from "../../interfaces/courseinfo";
+import swal from "sweetalert";
 
 import { checkAnswer } from "../../services/answer-check-service";
+import { deleteQuestion } from "../../services/delete-question-service";
 
 import { pullQuestions } from "../../services/translation-service";
 import {
@@ -18,6 +20,8 @@ import {
   AnswerBox,
   QuestionBox,
   QuizContainer,
+  Trash,
+  TrashBtn,
 } from "../../styles/quiz.styles";
 import "../../styles/quiz.styles.css";
 
@@ -52,6 +56,7 @@ const Quiz: FC<QuizProps> = ({
   const [clickedStyle, setClickedStyle] = useState([{}]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [usedQuestions, setUsedQuestions] = useState([-1]);
+  const [deletedItems, setDeletedItems] = useState([""]);
 
   useEffect(() => {
     async function loadCourse(level: string) {
@@ -71,12 +76,17 @@ const Quiz: FC<QuizProps> = ({
     if (level) {
       loadCourse(level);
     }
+
+    if (deletedItems[0] !== "") {
+      loadCourse(level);
+    }
   }, [
     courseDetailsFromStore.courseid,
     dispatch,
     level,
     loadCourseToStore,
     token,
+    deletedItems,
   ]);
 
   const handleClick = (answer: Answer) => {
@@ -121,6 +131,28 @@ const Quiz: FC<QuizProps> = ({
     setUsedQuestions(tempUsedQuestions);
   };
 
+  const handleDelete = (question: string, level: string) => {
+    const deletionResponse = deleteQuestion(question, level, token).then(
+      (result) => {
+        if (result.success) {
+          swal(
+            "Deleted!",
+            `Question "${result.success} was deleted.`,
+            "success"
+          );
+
+          let tempDeletedItems = [...deletedItems];
+          tempDeletedItems[0] = result.success;
+          setDeletedItems(tempDeletedItems);
+        }
+
+        if (result.error) {
+          swal("Sorry, deletion failed.", `Something went wrong.`, "error");
+        }
+      }
+    );
+  };
+
   return (
     <>
       {loggedIn ? (
@@ -129,7 +161,16 @@ const Quiz: FC<QuizProps> = ({
             challenges.map((question, index) => {
               return (
                 <div key={index}>
-                  <QuestionBox>{question.question}</QuestionBox>
+                  <QuestionBox>
+                    {question.question}
+                    <TrashBtn
+                      onClick={() => {
+                        handleDelete(question.question, level);
+                      }}
+                    >
+                      <Trash />
+                    </TrashBtn>
+                  </QuestionBox>
 
                   <div id="quizanswers">
                     {question.answers.map((answer, answerindex) => {

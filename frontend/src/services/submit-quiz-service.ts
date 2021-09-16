@@ -1,6 +1,11 @@
 import { Answer } from "../interfaces/courseinfo";
 import config from "../config";
 
+interface SubmissionResponse {
+  error?: string;
+  success?: string;
+}
+
 export const submitNewQuestion = async (
   level: string,
   course: string,
@@ -10,49 +15,30 @@ export const submitNewQuestion = async (
 ) => {
   //answers should not be empty strings
   const isAnswerOk = (answer: Answer) => {
-    if (
-      answer.answer !== null ||
-      answer.answer !== "" ||
-      answer.answer !== undefined
-    ) {
+    if (answer.answer) {
       return true;
     } else return false;
   };
 
-  const checkGoodAnswer = (answers: Answer[]) => {
-    //there should be at least one good answer
-    if (answers.some((answer: Answer) => answer.iscorrect === 1)) {
-      return true;
-    } else {
-      return false;
-    }
+  const isThereACorrectAnswer = (answers: Answer[]) => {
+    const result = answers.some((answer) => answer.iscorrect === 1);
+    return result;
   };
 
-  const checkWrongAnswers = (answers: Answer[]) => {
-    //there should be only one good answer
-    const result = answers.filter((answer) => answer.iscorrect === 0);
-    if (result.length === 3) {
-      return true;
-    } else return false;
-  };
-
-  const goodAnswer = checkGoodAnswer(answers);
-  const wrongAnswers = checkWrongAnswers(answers);
+  const isCorrectEvaluation = isThereACorrectAnswer(answers);
 
   // validation
   if (
     !newQuestion ||
     !answers.every(isAnswerOk) ||
     !token ||
-    !goodAnswer ||
-    !wrongAnswers ||
     !level ||
-    !course
+    !course ||
+    isCorrectEvaluation === false
   ) {
+    console.log(newQuestion, answers, level, course);
     return { error: "the new quiz question was submitted with missing values" };
   }
-
-  console.log("SUCCESS" + level, course, newQuestion, answers);
 
   try {
     const response = await fetch(`${config.url}/create/translation`, {
@@ -69,14 +55,13 @@ export const submitNewQuestion = async (
       }),
     });
 
-    const result = await response.json();
+    // const result = await response.json();
 
-    if (response.status === 200) {
-      return result;
-    } else {
-      return { error: "quiz question could not be added to the database" };
+    if (response.status === 200 || response.status === 204) {
+      return { success: "new question was submitted" } as SubmissionResponse;
     }
   } catch (err: any) {
-    return { error: err.message };
+    console.log(err, newQuestion, answers);
+    return { error: err.message } as SubmissionResponse;
   }
 };

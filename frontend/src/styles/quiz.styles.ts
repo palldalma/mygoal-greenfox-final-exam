@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ImBin } from "react-icons/im";
 
 const QuizContainer = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ const QuestionBox = styled.div`
   margin-top: 20px;
   background-color: pink;
   color: black;
+  justify-content: space-between;
 
   display: flex;
   align-items: center;
@@ -102,10 +104,32 @@ const AnswerContainer = styled.div`
   }
 `;
 
+const TrashBtn = styled.button`
+  height: 80%;
+  width: 50px;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: 4px;
+  background-color: white;
+
+  &:hover {
+    filter: brightness(70%);
+    transition: all 0.2s ease-in-out;
+  }
+`;
+
+const Trash = styled(ImBin)``;
+
 export {
   QuizContainer,
   QuestionBox,
   AnswerBox,
   SelectorContainer,
   AnswerContainer,
+  Trash,
+  TrashBtn,
 };

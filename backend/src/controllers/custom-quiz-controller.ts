@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { resourcesService } from "../services/resource-service";
+
 import HttpException from "../exceptions/http-exception";
 import { ErrorHandling } from "../services/error-service";
-import { updateResourceRequest } from "../models/dto/resource";
+
 import { customQuizService } from "../services/custom-quiz-service";
 
 export const customQuizController = {
@@ -13,14 +13,7 @@ export const customQuizController = {
     const answers = req.body.answers;
 
     const data = await customQuizService
-      .addNewQuestionToDb(
-        level,
-        course,
-        question,
-        answers
-        // body: { gem: gem, lives: lives },
-        /*as updateResourceRequest*/
-      )
+      .addNewQuestionToDb(level, course, question, answers)
       .catch((error: any) => {
         next(new HttpException(500, error.message));
       });
@@ -28,7 +21,7 @@ export const customQuizController = {
     // if ((data as ErrorHandling).status === `error`) {
     //   res.status(404).json(data);
     // } else {
-    res.status(200).json(data);
+    res.status(200).send();
     // },
   },
 };

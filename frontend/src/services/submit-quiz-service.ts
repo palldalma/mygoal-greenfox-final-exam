@@ -50,6 +50,7 @@ export const submitNewQuestion = async (
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
+        //level és course is a body-ban kéne utazzon
         question: newQuestion,
         answers: answers,
       }),

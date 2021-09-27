@@ -10,8 +10,6 @@ const deleteQuestion = async (
   }
 
   try {
-    console.log("question a frontend service-ben" + question);
-
     const response = await fetch(`${config.url}/delete`, {
       method: "DELETE",
       headers: {

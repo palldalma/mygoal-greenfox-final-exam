@@ -8,7 +8,7 @@ const checkAnswer = async (
   gem: number | undefined,
   lives: number | undefined
 ) => {
-  if (!userid || lives === undefined || !token || !gem) {
+  if (!userid || lives === undefined || !token || gem === undefined) {
     return { error: "Resources could not be updated." };
   }
 
@@ -22,12 +22,6 @@ const checkAnswer = async (
       { userid: userid, lives: updatedLives, gem: updatedGem },
       token
     );
-
-    if (updatedLives === 0) {
-      //set user disabled
-      //send timeStamp
-    }
-
     return { gem: updatedGem, lives: updatedLives };
   }
   if (answer.iscorrect === 1) {

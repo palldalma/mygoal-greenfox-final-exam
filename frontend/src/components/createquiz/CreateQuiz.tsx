@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from "react";
-
 import {
   AnswerContainer,
   QuizContainer,
@@ -185,7 +184,7 @@ const CreateQuiz: FC<CreateQuizProps> = ({
             </select>
           </SelectorContainer>
           <SelectorContainer>
-            {/* ide dinamikusan kell betölteni a témákat */}
+            {/* ide dinamikusan tölti be a témákat */}
             <select
               disabled={
                 customLevel === "starter" ||
@@ -202,12 +201,9 @@ const CreateQuiz: FC<CreateQuizProps> = ({
                 updateCourseOfCustomQuestion(e.target.value);
               }}
             >
-              {
-                /*isCourseFieldDisabled &&*/
-                courses.map((course, index) => {
-                  return <option key={index}>{course.name}</option>;
-                })
-              }
+              {courses.map((course, index) => {
+                return <option key={index}>{course.name}</option>;
+              })}
             </select>
           </SelectorContainer>
 

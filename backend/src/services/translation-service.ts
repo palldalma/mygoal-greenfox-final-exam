@@ -17,27 +17,19 @@ const listCourses = async (
 ): Promise<ListMyTranslationCoursesResponse> => {
   const { userid, level } = request;
 
-  const data: DbResult = await db
-    .query(`SELECT level FROM user u WHERE u.id = ?`, [userid])
-    .catch((error) => {
-      throw new Error(`database error: ${error.message}`);
-    });
-
-  // const level = data.results[0] as Level;
-
-  const courseData: DbResult = await db
-    .query(`SELECT * FROM course_translation c WHERE c.level = ?`, [
-      /* level.level,*/ level,
-    ])
-    .catch((error) => {
-      throw new Error(`database error: ${error.message}`);
-    });
-
-  // console.log(courseData);
-
-  const courses = courseData.results as Course[];
-
-  return new Promise((resolve) => resolve({ courses: courses }));
+  try {
+    const data: DbResult = await db.query(
+      `SELECT level FROM user u WHERE u.id = ?`,
+      [userid]
+    );
+    const courseData: DbResult = await db.query(
+      `SELECT * FROM course_translation c WHERE c.level = ?`,
+      [level]
+    );
+    return { courses: courseData.results as Course[] };
+  } catch (error: any) {
+    throw new Error(`database error: ${error.message}`);
+  }
 };
 
 const pullQuestions = async (

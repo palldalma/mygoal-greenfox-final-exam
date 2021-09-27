@@ -56,13 +56,10 @@ export const submitNewQuestion = async (
       }),
     });
 
-    // const result = await response.json();
-
     if (response.status === 200 || response.status === 204) {
       return { success: "new question was submitted" } as SubmissionResponse;
     }
   } catch (err: any) {
-    console.log(err, newQuestion, answers);
     return { error: err.message } as SubmissionResponse;
   }
 };

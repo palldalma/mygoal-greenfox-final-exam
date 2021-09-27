@@ -8,7 +8,7 @@ export const loginController = {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    const data = await userService
+    userService
       .login(req)
       .then((data) => {
         if ((data as ErrorHandling).status === "error") {

@@ -4,11 +4,11 @@ import config from "../config";
 
 import HttpException from "../exceptions/http-exception";
 
-interface tokenInterface {
-  name: string;
-  id: number;
-  token: string;
-}
+// interface tokenInterface {
+//   name: string;
+//   id: number;
+//   token: string;
+// }
 
 function authenticateToken(
   request: Request,

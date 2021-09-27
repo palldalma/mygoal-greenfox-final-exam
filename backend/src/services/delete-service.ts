@@ -5,41 +5,24 @@ interface QuestionID {
   id: number;
 }
 
-const deleteQuestionFromDb = async (
-  level: string,
+const deleteQuestionFromDb = async (question: string) => {
+  try {
+    const data: DbResult = await db.query(
+      `SELECT id FROM question_translation WHERE question=?;`,
+      [question]
+    );
+    const questionIDFromDb = data.results[0] as QuestionID;
 
-  question: string
-) => {
-  console.log(question);
-  const data: DbResult = await db
-
-    .query(`SELECT id FROM question_translation WHERE question=?;`, [question])
-
-    .catch((error) => {
-      throw new Error(`database error: ${error.message}`);
-    });
-
-  const questionIDFromDb = data.results[0] as QuestionID;
-
-  const asnwersFromDb: DbResult = await db
-
-    .query(`DELETE FROM answer_translation WHERE questionid=?;`, [
+    await db.query(`DELETE FROM answer_translation WHERE questionid=?;`, [
       questionIDFromDb.id,
-    ])
+    ]);
 
-    .catch((error) => {
-      throw new Error(`database error: ${error.message}`);
-    });
-
-  const deleteQuestionFromQuestionTable: DbResult = await db
-
-    .query(`DELETE FROM question_translation WHERE id=?;`, [
+    await db.query(`DELETE FROM question_translation WHERE id=?;`, [
       questionIDFromDb.id,
-    ])
-
-    .catch((error) => {
-      throw new Error(`database error: ${error.message}`);
-    });
+    ]);
+  } catch (error: any) {
+    throw new Error(`database error: ${error.message}`);
+  }
 };
 
 export const deleteService = {

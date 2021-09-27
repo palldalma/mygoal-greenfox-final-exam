@@ -38,7 +38,7 @@ const getResources = async (
 const updateResources = async (
   requestedChanges: updateResourceRequest,
   token: string | undefined
-) /* : Promise<ResourceInfo> */ => {
+) => {
   if (!requestedChanges.userid) {
     return { error: "Userid is missing." };
   }

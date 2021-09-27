@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-
 import HttpException from "../exceptions/http-exception";
-
 import { translationService } from "../services/translation-service";
 
 export const translationController = {
@@ -12,7 +10,7 @@ export const translationController = {
   ): Promise<void> {
     const userid: number = parseInt(req.headers.userid as unknown as string);
     const level: string = req.headers.level as unknown as string;
-    await translationService
+    translationService
       .listCourses({ userid, level })
       .then((data) => {
         return res.status(200).json(data);
@@ -29,13 +27,13 @@ export const translationController = {
   ): Promise<void> {
     const courseid = parseInt(req.params.id);
 
-    await translationService
+    translationService
       .pullQuestions({ courseid })
-      .then((data) => {
-        return res.status(200).json(data);
-      })
       .catch((error) => {
         next(new HttpException(500, error));
+      })
+      .then((data) => {
+        return res.status(200).json(data);
       });
   },
 };
